@@ -29,11 +29,9 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        //TODO check resume in storage
-            for (int i = 0; i < size; i++) {
-                if(storage[i].getUuid().equals(uuid)) return storage[i];
-            }
-        return null;
+        int index = getResumeIndex(uuid);
+
+        return index == -1 ? null : storage[index];
     }
 
     public void update(Resume r) {
