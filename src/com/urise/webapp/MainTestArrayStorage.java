@@ -24,10 +24,10 @@ public class MainTestArrayStorage {
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
-//        System.out.println("Get r3: " + ARRAY_STORAGE.get(r3.getUuid()));
-//        r3.setUuid("uuid3update");
-//        ARRAY_STORAGE.update(r3);
-//        System.out.println("Update r3: " + ARRAY_STORAGE.get(r3.getUuid()));
+        System.out.println("\nGet r3: " + ARRAY_STORAGE.get(r3.getUuid()));
+        r3.setUuid("uuid3updated");
+        ARRAY_STORAGE.update(r3);
+        System.out.println("Update r3: " + ARRAY_STORAGE.get(r3.getUuid()));
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
