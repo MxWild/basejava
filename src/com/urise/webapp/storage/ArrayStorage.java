@@ -37,30 +37,25 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        //TODO check resume in storage
         int index = getResumeIndex(r.getUuid());
         if (index != -1) storage[index] = r;
-        else System.out.println("Resume not found in Storage");
+        else {
+            System.out.println("Resume not found in Storage");
+        }
     }
 
-    private int getResumeIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) return i;
-        }
-        // -1 если такого резюме нет в storage
-        return -1;
-    }
 
     public void delete(String uuid) {
-        //TODO check resume in storage
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
+        int index = getResumeIndex(uuid);
+        if (index == -1) {
+            if (storage[index].getUuid().equals(uuid)) {
+                storage[index] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
             }
+        } else {
+            System.out.println("Resume not found in Storage");
         }
-
     }
 
     /**
@@ -72,5 +67,13 @@ public class ArrayStorage {
 
     public int size() {
         return this.size;
+    }
+
+    private int getResumeIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) return i;
+        }
+        // -1 если такого резюме нет в storage
+        return -1;
     }
 }
