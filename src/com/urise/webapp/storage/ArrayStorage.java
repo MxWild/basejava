@@ -36,6 +36,7 @@ public class ArrayStorage {
 
     public void update(Resume r) {
         int index = getResumeIndex(r.getUuid());
+
         if (index != -1) storage[index] = r;
         else {
             System.out.println("Resume not found in Storage");
@@ -45,12 +46,11 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int index = getResumeIndex(uuid);
-        if (index == -1) {
-            if (storage[index].getUuid().equals(uuid)) {
+
+        if (index != -1) {
                 storage[index] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
-            }
         } else {
             System.out.println("Resume not found in Storage");
         }
