@@ -19,10 +19,12 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        //TODO check resume not in storage
-        // поиск свободного элемента
-        if (get(r.getUuid()) == null) {
-            storage[size++] = r;
+        // проверяем, есть ли таке резюме в storage?
+        if (getResumeIndex(r.getUuid()) == -1) {
+            if (size < storage.length) storage[size++] = r;
+            else System.out.println("Error: Not enough space in Storage");
+        } else {
+            System.out.println("Already storage had this resume");
         }
     }
 
@@ -45,6 +47,7 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) return i;
         }
+        // -1 если такого резюме нет в storage
         return -1;
     }
 
