@@ -31,7 +31,12 @@ public class ArrayStorage {
     public Resume get(String uuid) {
         int index = getResumeIndex(uuid);
 
-        return index == -1 ? null : storage[index];
+        if (index != -1) {
+            return storage[index];
+        } else {
+            System.out.println("Resume not found in Storage");
+        }
+        return null;
     }
 
     public void update(Resume r) {
