@@ -12,9 +12,8 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        // Заполняем нулями весь массив
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
@@ -53,9 +52,9 @@ public class ArrayStorage {
         int index = getResumeIndex(uuid);
 
         if (index != -1) {
-                storage[index] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         } else {
             System.out.println("Resume not found in Storage");
         }
