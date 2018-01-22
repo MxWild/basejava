@@ -27,7 +27,7 @@ public class ArrayStorage implements Storage {
             if (size < STORAGE_LIMIT) storage[size++] = r;
             else System.out.println("Error: Not enough space in Storage");
         } else {
-            System.out.println("Already storage had this resume");
+            System.out.println("Resume " + r.getUuid() + "already exist int storage");
         }
     }
 
@@ -38,7 +38,7 @@ public class ArrayStorage implements Storage {
         if (index != -1) {
             return storage[index];
         } else {
-            System.out.println("Resume not found in Storage");
+            System.out.println("Resume " + uuid + " not found in Storage");
         }
         return null;
     }
@@ -49,7 +49,7 @@ public class ArrayStorage implements Storage {
 
         if (index != -1) storage[index] = r;
         else {
-            System.out.println("Resume not found in Storage");
+            System.out.println("Resume " + r.getUuid() + " not found in Storage");
         }
     }
 
@@ -62,7 +62,7 @@ public class ArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume not found in Storage");
+            System.out.println("Resume " + uuid + " not found in Storage");
         }
     }
 
