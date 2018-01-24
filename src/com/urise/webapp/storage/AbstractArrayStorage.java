@@ -17,6 +17,12 @@ public abstract class AbstractArrayStorage implements Storage {
         return this.size;
     }
 
+    public void clear() {
+        // Заполняем нулями весь массив
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
+    }
+
     public Resume get(String uuid) {
         int index = getResumeIndex(uuid);
 

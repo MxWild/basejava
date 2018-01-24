@@ -10,13 +10,6 @@ import java.util.Arrays;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void clear() {
-        // Заполняем нулями весь массив
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
-    @Override
     public void save(Resume r) {
         // проверяем, есть ли таке резюме в storage?
         if (getResumeIndex(r.getUuid()) == -1) {
