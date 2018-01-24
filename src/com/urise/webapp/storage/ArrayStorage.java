@@ -32,9 +32,11 @@ public class ArrayStorage extends AbstractArrayStorage {
     public void update(Resume r) {
         int index = getResumeIndex(r.getUuid());
 
-        if (index != -1) storage[index] = r;
-        else {
+        if (index == -1) {
             System.out.println("Resume " + r.getUuid() + " not found in Storage");
+        }
+        else {
+            storage[index] = r;
         }
     }
 
@@ -56,7 +58,7 @@ public class ArrayStorage extends AbstractArrayStorage {
      */
     @Override
     public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
 
