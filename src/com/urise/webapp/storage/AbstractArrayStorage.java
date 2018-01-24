@@ -13,8 +13,20 @@ public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    @Override
     public int size() {
         return this.size;
     }
+
+    public Resume get(String uuid) {
+        int index = getResumeIndex(uuid);
+
+        if (index == -1) {
+            System.out.println("Resume " + uuid + " not found in Storage");
+        } else {
+            return storage[index];
+        }
+        return null;
+    }
+
+    protected abstract int getResumeIndex(String uuid);
 }
