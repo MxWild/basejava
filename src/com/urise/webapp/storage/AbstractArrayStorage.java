@@ -28,5 +28,12 @@ public abstract class AbstractArrayStorage implements Storage {
         return null;
     }
 
+    /**
+     * @return array, contains only Resumes in storage (without null)
+     */
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
+    }
+
     protected abstract int getResumeIndex(String uuid);
 }

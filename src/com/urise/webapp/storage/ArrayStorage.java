@@ -53,14 +53,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    @Override
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
-
 
     protected int getResumeIndex(String uuid) {
         for (int i = 0; i < size; i++) {
