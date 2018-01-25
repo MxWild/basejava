@@ -12,11 +12,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void update(Resume r) {
-
-    }
-
-    @Override
     public void delete(String uuid) {
 
     }
