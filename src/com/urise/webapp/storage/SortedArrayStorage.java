@@ -6,6 +6,11 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
+    @Override
+    protected void insertResume(Resume r, int index) {
+
+    }
+
     protected int getResumeIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);

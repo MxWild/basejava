@@ -25,8 +25,13 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume r) {
         // проверяем, есть ли таке резюме в storage?
-        if (getResumeIndex(r.getUuid()) == -1) {
-            if (size < STORAGE_LIMIT) storage[size++] = r;
+        int index = getResumeIndex(r.getUuid());
+
+        if (index == -1) {
+            if (size < STORAGE_LIMIT) {
+                insertResume(r, index);
+                size++;
+            }
             else System.out.println("Error: Not enough space in Storage");
         } else {
             System.out.println("Resume " + r.getUuid() + "already exist int storage");
@@ -75,4 +80,6 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     protected abstract int getResumeIndex(String uuid);
+
+    protected abstract void insertResume(Resume r, int index);
 }
