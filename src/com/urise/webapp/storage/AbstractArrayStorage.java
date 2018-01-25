@@ -29,6 +29,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
         if (index == -1) {
             if (size < STORAGE_LIMIT) {
+                // добавляем метод для добавления резюме в Storage
                 insertResume(r, index);
                 size++;
             }
@@ -42,7 +43,10 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getResumeIndex(uuid);
 
         if (index != -1) {
-            storage[index] = storage[size - 1];
+            //storage[index] = storage[size - 1];
+            // добавляем метод для удаления резюме из Storage
+            deleteResume(index);
+            // хвост зануляем
             storage[size - 1] = null;
             size--;
         } else {
@@ -82,4 +86,6 @@ public abstract class AbstractArrayStorage implements Storage {
     protected abstract int getResumeIndex(String uuid);
 
     protected abstract void insertResume(Resume r, int index);
+
+    protected abstract void deleteResume(int index);
 }

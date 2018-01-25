@@ -11,6 +11,11 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     }
 
+    @Override
+    protected void deleteResume(int index) {
+
+    }
+
     protected int getResumeIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
