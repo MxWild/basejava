@@ -8,12 +8,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void insertResume(Resume r, int index) {
-
+        storage[size] = r;
     }
 
     @Override
     protected void deleteResume(int index) {
-
+        System.arraycopy(storage, index + 1, storage, index, size - index - 1);
     }
 
     protected int getResumeIndex(String uuid) {
