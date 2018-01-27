@@ -27,7 +27,7 @@ public abstract class AbstractArrayStorage implements Storage {
         // проверяем, есть ли таке резюме в storage?
         int index = getResumeIndex(r.getUuid());
 
-        if (index == -1) {
+        if (index < 0) {
             if (size < STORAGE_LIMIT) {
                 // добавляем метод для добавления резюме в Storage
                 insertResume(r, index);

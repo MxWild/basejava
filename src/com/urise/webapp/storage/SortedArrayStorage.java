@@ -8,7 +8,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void insertResume(Resume r, int index) {
-        storage[size] = r;
+        index = - index - 1;
+        System.arraycopy(storage, index, storage,index + 1, size - index);
+        storage[index] = r;
     }
 
     @Override
@@ -24,6 +26,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     protected int getResumeIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
+        // Методы поиска возвращают индекс найденного элемента массива.
+        // Если элемент не найден, то возвращается отрицательное число, означающее индекс,
+        // с которым элемент был бы вставлен в массив в заданном порядке, с обратным знаком.
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
