@@ -1,7 +1,6 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.ArrayStorage;
 import com.urise.webapp.storage.SortedArrayStorage;
 import com.urise.webapp.storage.Storage;
 
@@ -28,6 +27,7 @@ public class MainTestArraySortedStorage {
         printAll();
         System.out.println("Size: " + SORTED_ARRAY_STORAGE.size());
         System.out.println("Get dummy: " + SORTED_ARRAY_STORAGE.get("dummy"));
+        System.out.println("Get r3: " + SORTED_ARRAY_STORAGE.get(r3.getUuid()));
 
 
         SORTED_ARRAY_STORAGE.delete("uuid1");
