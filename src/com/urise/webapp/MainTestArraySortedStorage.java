@@ -27,6 +27,8 @@ public class MainTestArraySortedStorage {
         System.out.println("Size: " + SORTED_ARRAY_STORAGE.size());
         printAll();
         System.out.println("Size: " + SORTED_ARRAY_STORAGE.size());
+        System.out.println("Get dummy: " + SORTED_ARRAY_STORAGE.get("dummy"));
+
 
         SORTED_ARRAY_STORAGE.delete("uuid1");
         printAll();

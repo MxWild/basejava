@@ -42,7 +42,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getResumeIndex(uuid);
 
-        if (index != -1) {
+        if (index >= 0) {
             //storage[index] = storage[size - 1];
             // добавляем метод для удаления резюме из Storage
             deleteResume(index);
@@ -57,7 +57,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume r) {
         int index = getResumeIndex(r.getUuid());
 
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("Resume " + r.getUuid() + " not found in Storage");
         }
         else {
