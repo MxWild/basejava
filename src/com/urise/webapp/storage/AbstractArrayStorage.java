@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -35,7 +36,8 @@ public abstract class AbstractArrayStorage implements Storage {
             }
             else System.out.println("Error: Not enough space in Storage");
         } else {
-            System.out.println("Resume " + r.getUuid() + "already exist int storage");
+            //System.out.println("Resume " + r.getUuid() + "already exist int storage");
+            throw new ExistStorageException(r.getUuid());
         }
     }
 
