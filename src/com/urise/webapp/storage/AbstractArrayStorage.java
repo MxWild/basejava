@@ -1,6 +1,8 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -34,7 +36,10 @@ public abstract class AbstractArrayStorage implements Storage {
                 insertResume(r, index);
                 size++;
             }
-            else System.out.println("Error: Not enough space in Storage");
+            else {
+                //System.out.println("Error: Not enough space in Storage");
+                throw new StorageException("Error: Not enough space in Storage", r.getUuid());
+            }
         } else {
             //System.out.println("Resume " + r.getUuid() + "already exist int storage");
             throw new ExistStorageException(r.getUuid());
@@ -52,7 +57,8 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume " + uuid + " not found in Storage");
+            //System.out.println("Resume " + uuid + " not found in Storage");
+            throw new NotExistStorageException(uuid);
         }
     }
 
@@ -60,7 +66,8 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getResumeIndex(r.getUuid());
 
         if (index < 0) {
-            System.out.println("Resume " + r.getUuid() + " not found in Storage");
+            //System.out.println("Resume " + r.getUuid() + " not found in Storage");
+            throw new NotExistStorageException(r.getUuid());
         }
         else {
             storage[index] = r;
@@ -71,11 +78,12 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getResumeIndex(uuid);
 
         if (index < 0) {
-            System.out.println("Resume " + uuid + " not found in Storage");
+            //System.out.println("Resume " + uuid + " not found in Storage");
+            throw new NotExistStorageException(uuid);
         } else {
             return storage[index];
         }
-        return null;
+        //return null;
     }
 
     /**
