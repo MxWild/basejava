@@ -10,9 +10,9 @@ import java.util.UUID;
 
 import static org.junit.Assert.*;
 
-public abstract class AbstractArrayStorageTest {
+public class AbstractArrayStorageTest {
 
-    private Storage storage = new ArrayStorage();
+    private Storage storage;// = new ArrayStorage();
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -32,11 +32,17 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void size() {
-        Assert.assertEquals(3, storage.size());
+        asserSize(3);
+    }
+
+    public void asserSize(int size) {
+        Assert.assertEquals(size, storage.size());
     }
 
     @Test
     public void clear() {
+        storage.clear();
+        asserSize(0);
     }
 
     @Test
@@ -58,6 +64,10 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
         storage.get("dummy");
+    }
+
+    @Test
+    public void getExist() {
     }
 
     @Test
