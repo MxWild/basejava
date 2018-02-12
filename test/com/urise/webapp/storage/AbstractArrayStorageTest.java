@@ -19,6 +19,9 @@ public class AbstractArrayStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final Resume resume3 = new Resume(UUID_3);
 
+    private static final String UUID_TEST = "test_uuid";
+    public static final Resume resume4 = new Resume(UUID_TEST);
+
 //    public AbstractArrayStorageTest(Storage storage) {
 //        this.storage = storage;
 //    }
@@ -36,10 +39,6 @@ public class AbstractArrayStorageTest {
         assertSize(3);
     }
 
-    public void assertSize(int size) {
-        Assert.assertEquals(size, storage.size());
-    }
-
     @Test
     public void clear() {
         storage.clear();
@@ -48,10 +47,15 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void save() {
+        storage.save(resume4);
+        assertSize(4);
+        Assert.assertEquals(resume4, storage.get(UUID_TEST));
     }
 
     @Test
     public void delete() {
+        storage.delete(UUID_1);
+        assertSize(2);
     }
 
     @Test
@@ -84,5 +88,9 @@ public class AbstractArrayStorageTest {
         Assert.assertEquals(resume1, resumes[0]);
         Assert.assertEquals(resume2, resumes[1]);
         Assert.assertEquals(resume3, resumes[2]);
+    }
+
+    public void assertSize(int size) {
+        Assert.assertEquals(size, storage.size());
     }
 }
