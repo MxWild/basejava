@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class AbstractArrayStorageTest {
 
-    private Storage storage = new ArrayStorage();
+    private Storage storage;// = new ArrayStorage();
 
     private static final String UUID_1 = "uuid1";
     private static final Resume resume1 = new Resume(UUID_1);
