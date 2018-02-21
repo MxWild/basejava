@@ -22,11 +22,6 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-// remove on HW4
-//    public void setUuid(String uuid) {
-//        this.uuid = uuid;
-//    }
-
     @Override
     public String toString() {
         return uuid;
