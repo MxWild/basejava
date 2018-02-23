@@ -1,8 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
-import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -26,7 +24,45 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-//    public void save(Resume r) {
+    @Override
+    boolean isExistKey(Object key) {
+        return (Integer) key >= 0;
+    }
+
+    @Override
+    Object getKey(String uuid) {
+        return getResumeIndex(uuid);
+    }
+
+    @Override
+    void doSave(Resume r, Object key) {
+        if (size < STORAGE_LIMIT) {
+            // добавляем метод для добавления резюме в Storage
+            insertResume(r, (Integer) key);
+            size++;
+        } else {
+            throw new ExistStorageException(r.getUuid());
+        }
+    }
+
+    @Override
+    void doDelete(Object key) {
+        deleteResume((Integer) key);
+        storage[size - 1] = null;
+        size--;
+    }
+
+    @Override
+    void doUpdate(Resume r, Object key) {
+        storage[(Integer) key] = r;
+    }
+
+    @Override
+    Resume doGet(Object key) {
+        return storage[(Integer) key];
+    }
+
+    //    public void save(Resume r) {
 //        // проверяем, есть ли таке резюме в storage?
 //        int index = getResumeIndex(r.getUuid());
 //

@@ -7,43 +7,45 @@ import com.urise.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     // метод для поиска ключа резюме
-    protected abstract Object getKey(String uuid);
+    abstract Object getKey(String uuid);
 
     // ключ существует?
-    protected abstract boolean isExistKey(Object key);
+    abstract boolean isExistKey(Object key);
 
     // сохраняем резюме
-    protected abstract void doSave(Resume r);
+    abstract void doSave(Resume r, Object key);
 
     // удаляем резюме по ключу
-    protected abstract void doDelete(String uuid);
+    abstract void doDelete(Object key);
 
     // метод для обновления резюме для каждой реализации
-    protected abstract void doUpdate(Resume r);
+    abstract void doUpdate(Resume r, Object key);
 
     // получить резюме по ключу
-    protected abstract Resume doGet(String uuid);
+    abstract Resume doGet(Object key);
 
     // выделяю NotExistStorageException
-    private void checkNotExistStorageException(String uuid) {
+    private Object checkNotExistStorageException(String uuid) {
         Object key = getKey(uuid);
         if (!isExistKey(key)) {
             throw new NotExistStorageException(uuid);
         }
+        return key;
     }
 
     // выделяю ExistStorageException
-    private void checkExistStorageException(String uuid) {
+    private Object checkExistStorageException(String uuid) {
         Object key = getKey(uuid);
         if (isExistKey(key)) {
             throw new ExistStorageException(uuid);
         }
+        return key;
     }
 
     public void save(Resume r) {
 
-        checkExistStorageException(r.getUuid());
-        doSave(r);
+        Object key = checkExistStorageException(r.getUuid());
+        doSave(r, key);
 
 //        if (index < 0) {
 //            if (size < STORAGE_LIMIT) {
@@ -62,8 +64,8 @@ public abstract class AbstractStorage implements Storage {
 
     public void delete(String uuid) {
         //int index = getResumeIndex(uuid);
-        checkNotExistStorageException(uuid);
-        doDelete(uuid);
+        Object key = checkNotExistStorageException(uuid);
+        doDelete(key);
 
 //        if (index >= 0) {
 //            //storage[index] = storage[size - 1];
@@ -80,13 +82,13 @@ public abstract class AbstractStorage implements Storage {
 
 
     public void update(Resume r) {
-        checkNotExistStorageException(r.getUuid());
-        doUpdate(r);
+        Object key = checkNotExistStorageException(r.getUuid());
+        doUpdate(r, key);
     }
 
     public Resume get(String uuid) {
-        checkNotExistStorageException(uuid);
-        return doGet(uuid);
+        Object key = checkNotExistStorageException(uuid);
+        return doGet(key);
     }
 
 }
