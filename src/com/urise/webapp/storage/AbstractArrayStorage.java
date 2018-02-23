@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -26,65 +26,65 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    public void save(Resume r) {
-        // проверяем, есть ли таке резюме в storage?
-        int index = getResumeIndex(r.getUuid());
+//    public void save(Resume r) {
+//        // проверяем, есть ли таке резюме в storage?
+//        int index = getResumeIndex(r.getUuid());
+//
+//        if (index < 0) {
+//            if (size < STORAGE_LIMIT) {
+//                // добавляем метод для добавления резюме в Storage
+//                insertResume(r, index);
+//                size++;
+//            }
+//            else {
+//                //System.out.println("Error: Not enough space in Storage");
+//                throw new StorageException("Error: Not enough space in Storage", r.getUuid());
+//            }
+//        } else {
+//            //System.out.println("Resume " + r.getUuid() + "already exist int storage");
+//            throw new ExistStorageException(r.getUuid());
+//        }
+//    }
 
-        if (index < 0) {
-            if (size < STORAGE_LIMIT) {
-                // добавляем метод для добавления резюме в Storage
-                insertResume(r, index);
-                size++;
-            }
-            else {
-                //System.out.println("Error: Not enough space in Storage");
-                throw new StorageException("Error: Not enough space in Storage", r.getUuid());
-            }
-        } else {
-            //System.out.println("Resume " + r.getUuid() + "already exist int storage");
-            throw new ExistStorageException(r.getUuid());
-        }
-    }
+//    public void delete(String uuid) {
+//        int index = getResumeIndex(uuid);
+//
+//        if (index >= 0) {
+//            //storage[index] = storage[size - 1];
+//            // добавляем метод для удаления резюме из Storage
+//            deleteResume(index);
+//            // хвост зануляем
+//            storage[size - 1] = null;
+//            size--;
+//        } else {
+//            //System.out.println("Resume " + uuid + " not found in Storage");
+//            throw new NotExistStorageException(uuid);
+//        }
+//    }
 
-    public void delete(String uuid) {
-        int index = getResumeIndex(uuid);
+//    public void update(Resume r) {
+//        int index = getResumeIndex(r.getUuid());
+//
+//        if (index < 0) {
+//            //System.out.println("Resume " + r.getUuid() + " not found in Storage");
+//            throw new NotExistStorageException(r.getUuid());
+//        }
+//        else {
+//            storage[index] = r;
+//        }
+//    }
 
-        if (index >= 0) {
-            //storage[index] = storage[size - 1];
-            // добавляем метод для удаления резюме из Storage
-            deleteResume(index);
-            // хвост зануляем
-            storage[size - 1] = null;
-            size--;
-        } else {
-            //System.out.println("Resume " + uuid + " not found in Storage");
-            throw new NotExistStorageException(uuid);
-        }
-    }
-
-    public void update(Resume r) {
-        int index = getResumeIndex(r.getUuid());
-
-        if (index < 0) {
-            //System.out.println("Resume " + r.getUuid() + " not found in Storage");
-            throw new NotExistStorageException(r.getUuid());
-        }
-        else {
-            storage[index] = r;
-        }
-    }
-
-    public Resume get(String uuid) {
-        int index = getResumeIndex(uuid);
-
-        if (index < 0) {
-            //System.out.println("Resume " + uuid + " not found in Storage");
-            throw new NotExistStorageException(uuid);
-        } else {
-            return storage[index];
-        }
-        //return null;
-    }
+//    public Resume get(String uuid) {
+//        int index = getResumeIndex(uuid);
+//
+//        if (index < 0) {
+//            //System.out.println("Resume " + uuid + " not found in Storage");
+//            throw new NotExistStorageException(uuid);
+//        } else {
+//            return storage[index];
+//        }
+//        //return null;
+//    }
 
     /**
      * @return array, contains only Resumes in storage (without null)
