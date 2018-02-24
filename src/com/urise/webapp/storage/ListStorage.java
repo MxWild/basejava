@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ListStorage extends AbstractStorage {
     @Override
     protected Integer getKey(String uuid) {
         for (int i = 0; i < resumeList.size(); i++) {
-            if(uuid.equals(resumeList.get(i).getUuid())) {
+            if (uuid.equals(resumeList.get(i).getUuid())) {
                 return i;
             }
         }
@@ -27,12 +28,14 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume r, Object key) {
-        resumeList.add(r);
+        if (resumeList.size() < AbstractArrayStorage.STORAGE_LIMIT) {
+            resumeList.add(r);
+        } else throw new StorageException("Storage overflow", r.getUuid());
     }
 
     @Override
     protected void doDelete(Object key) {
-        resumeList.remove(((Integer)key).intValue());
+        resumeList.remove(((Integer) key).intValue());
     }
 
     @Override
