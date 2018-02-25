@@ -1,50 +1,67 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class MapStorage extends AbstractStorage {
+
+    private Map<String, Resume> resumeMap = new TreeMap<>();
+
     @Override
-    Integer getKey(String uuid) {
+    protected Object getKey(String uuid) {
+
+        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
+            if (uuid.equals(pair.getValue().getUuid())) return uuid;
+        }
+
         return null;
     }
 
     @Override
-    boolean isExistKey(Object key) {
-        return false;
+    protected boolean isExistKey(Object key) {
+        return key != null;
     }
 
     @Override
-    void doSave(Resume r, Object key) {
-
+    protected void doSave(Resume r, Object key) {
+        if (resumeMap.size() < AbstractArrayStorage.STORAGE_LIMIT) {
+            resumeMap.put(r.getUuid(), r);
+        } else throw new StorageException("Storage overflow", r.getUuid());
     }
 
     @Override
-    void doDelete(Object key) {
-
+    protected void doDelete(Object key) {
+        resumeMap.remove(key);
     }
 
     @Override
-    void doUpdate(Resume r, Object key) {
-
+    protected void doUpdate(Resume r, Object key) {
+        resumeMap.put((String) key, r);
     }
 
     @Override
-    Resume doGet(Object key) {
-        return null;
+    protected Resume doGet(Object key) {
+        return resumeMap.get(key);
     }
 
     @Override
     public void clear() {
-
+        resumeMap.clear();
     }
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        // взял тут http://www.baeldung.com/convert-map-values-to-array-list-set
+        Collection<Resume> values = resumeMap.values();
+        return values.toArray(new Resume[values.size()]);
     }
 
     @Override
     public int size() {
-        return 0;
+        return resumeMap.size();
     }
 }
