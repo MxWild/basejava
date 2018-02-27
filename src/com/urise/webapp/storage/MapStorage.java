@@ -4,12 +4,12 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
 
-    private Map<String, Resume> resumeMap = new TreeMap<>();
+    private Map<String, Resume> resumeMap = new HashMap<>();
 
     @Override
     protected Object getKey(String uuid) {
