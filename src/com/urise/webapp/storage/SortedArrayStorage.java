@@ -25,7 +25,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    protected int getResumeIndex(String uuid) {
+    @Override
+    protected Integer getKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         //searchKey.setUuid(uuid)  --  remove on HW4;
         // Методы поиска возвращают индекс найденного элемента массива.

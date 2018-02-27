@@ -14,23 +14,26 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected Object getKey(String uuid) {
 
-        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
-            if (uuid.equals(pair.getValue().getUuid())) return uuid;
-        }
+//        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
+//            if (uuid.equals(pair.getValue().getUuid())) return uuid;
+//        }
 
-        return null;
+        return uuid;
     }
 
     @Override
     protected boolean isExistKey(Object key) {
-        return key != null;
+
+        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
+            if (key.equals(pair.getValue().getUuid())) return true;
+        }
+
+        return false;
     }
 
     @Override
     protected void doSave(Resume r, Object key) {
-        if (resumeMap.size() < AbstractArrayStorage.STORAGE_LIMIT) {
             resumeMap.put(r.getUuid(), r);
-        } else throw new StorageException("Storage overflow", r.getUuid());
     }
 
     @Override

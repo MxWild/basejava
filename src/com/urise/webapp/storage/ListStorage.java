@@ -27,9 +27,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume r, Object key) {
-        if (resumeList.size() < AbstractArrayStorage.STORAGE_LIMIT) {
             resumeList.add(r);
-        } else throw new StorageException("Storage overflow", r.getUuid());
     }
 
     @Override

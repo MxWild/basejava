@@ -30,10 +30,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (Integer) key >= 0;
     }
 
-    @Override
-    protected Object getKey(String uuid) {
-        return getResumeIndex(uuid);
-    }
+//    @Override
+//    protected Object getKey(String uuid) {
+//        return getResumeIndex(uuid);
+//    }
 
     @Override
     protected void doSave(Resume r, Object key) {
@@ -70,7 +70,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    protected abstract int getResumeIndex(String uuid);
+    //protected abstract int getResumeIndex(String uuid);
+    protected abstract Integer getKey(String uuid);
 
     protected abstract void insertResume(Resume r, int index);
 
