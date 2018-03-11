@@ -1,6 +1,5 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
@@ -26,8 +25,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExistKey(Object key) {
-        return (Integer) key >= 0;
+    protected boolean isExist(Object index) {
+        return (Integer) index >= 0;
     }
 
 //    @Override
@@ -36,10 +35,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 //    }
 
     @Override
-    protected void doSave(Resume r, Object key) {
+    protected void doSave(Resume r, Object index) {
         if (size < STORAGE_LIMIT) {
             // добавляем метод для добавления резюме в Storage
-            insertResume(r, (Integer) key);
+            insertResume(r, (Integer) index);
             size++;
         } else {
             throw new StorageException("Storage overflow", r.getUuid());
@@ -47,20 +46,20 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doDelete(Object key) {
-        deleteResume((Integer) key);
+    protected void doDelete(Object index) {
+        deleteResume((Integer) index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected void doUpdate(Resume r, Object key) {
-        storage[(Integer) key] = r;
+    protected void doUpdate(Resume r, Object index) {
+        storage[(Integer) index] = r;
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return storage[(Integer) key];
+    protected Resume doGet(Object index) {
+        return storage[(Integer) index];
     }
 
     /**

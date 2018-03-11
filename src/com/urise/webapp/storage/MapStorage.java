@@ -1,6 +1,5 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Collection;
@@ -22,13 +21,15 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExistKey(Object key) {
+    protected boolean isExist(Object key) {
 
-        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
-            if (key.equals(pair.getValue().getUuid())) return true;
-        }
+//        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
+//            if (key.equals(pair.getValue().getUuid())) return true;
+//        }
 
-        return false;
+        return resumeMap.containsKey(key);
+
+        //return false;
     }
 
     @Override

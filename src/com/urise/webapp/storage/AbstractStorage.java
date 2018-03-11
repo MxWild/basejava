@@ -10,7 +10,7 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Object getKey(String uuid);
 
     // ключ существует?
-    protected abstract boolean isExistKey(Object key);
+    protected abstract boolean isExist(Object key);
 
     // сохраняем резюме
     protected abstract void doSave(Resume r, Object key);
@@ -27,7 +27,7 @@ public abstract class AbstractStorage implements Storage {
     // выделяю NotExistStorageException
     private Object checkNotExistStorageException(String uuid) {
         Object key = getKey(uuid);
-        if (!isExistKey(key)) {
+        if (!isExist(key)) {
             throw new NotExistStorageException(uuid);
         }
         return key;
@@ -36,7 +36,7 @@ public abstract class AbstractStorage implements Storage {
     // выделяю ExistStorageException
     private Object checkExistStorageException(String uuid) {
         Object key = getKey(uuid);
-        if (isExistKey(key)) {
+        if (isExist(key)) {
             throw new ExistStorageException(uuid);
         }
         return key;

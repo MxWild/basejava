@@ -54,10 +54,16 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertEquals(resume4, storage.get(UUID_TEST));
     }
 
-    @Test
+    @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_1);
         assertSize(2);
+        storage.get(UUID_1);
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExist() throws Exception {
+        storage.delete("dummy");
     }
 
     @Test
@@ -101,12 +107,19 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() {
         Resume[] resumes = storage.getAll();
         Assert.assertEquals(3, resumes.length);
-        Assert.assertEquals(resume1, resumes[0]);
-        Assert.assertEquals(resume2, resumes[1]);
-        Assert.assertEquals(resume3, resumes[2]);
+//        Assert.assertEquals(resume1, resumes[0]);
+//        Assert.assertEquals(resume2, resumes[1]);
+//        Assert.assertEquals(resume3, resumes[2]);
+        assertGet(resume1);
+        assertGet(resume2);
+        assertGet(resume3);
     }
 
     public void assertSize(int size) {
         Assert.assertEquals(size, storage.size());
+    }
+
+    private void assertGet(Resume r) {
+        Assert.assertEquals(r, storage.get(r.getUuid()));
     }
 }
