@@ -38,7 +38,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected Integer getKey(String uuid) {
-        Resume searchKey = new Resume(uuid);
+        Resume searchKey = new Resume(uuid, null);
         //searchKey.setUuid(uuid)  --  remove on HW4;
         // Методы поиска возвращают индекс найденного элемента массива.
         // Если элемент не найден, то возвращается отрицательное число, означающее индекс,

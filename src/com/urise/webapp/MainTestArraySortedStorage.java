@@ -12,11 +12,11 @@ public class MainTestArraySortedStorage {
 
     public static void main(String[] args) {
 
-        Resume r3 = new Resume("uuid3");
+        Resume r3 = new Resume("uuid3", "name3");
         //r3.setUuid("uuid3"); -- add on HW4
-        Resume r1 = new Resume("uuid1");
+        Resume r1 = new Resume("uuid1", "name1");
         //r1.setUuid("uuid1"); -- add on HW4
-        Resume r2 = new Resume("uuid2");
+        Resume r2 = new Resume("uuid2", "name2");
         //r2.setUuid("uuid2"); -- add on HW4
 
         SORTED_ARRAY_STORAGE.save(r3);
@@ -26,7 +26,7 @@ public class MainTestArraySortedStorage {
         System.out.println("Size: " + SORTED_ARRAY_STORAGE.size());
         printAll();
         System.out.println("Size: " + SORTED_ARRAY_STORAGE.size());
-        System.out.println("Get dummy: " + SORTED_ARRAY_STORAGE.get("dummy"));
+        //System.out.println("Get dummy: " + SORTED_ARRAY_STORAGE.get("dummy"));
         System.out.println("Get r3: " + SORTED_ARRAY_STORAGE.get(r3.getUuid()));
 
 

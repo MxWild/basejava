@@ -11,16 +11,20 @@ import org.junit.Test;
 public abstract class AbstractArrayStorageTest {
 
     private static final String UUID_1 = "uuid1";
-    private static final Resume resume1 = new Resume(UUID_1);
+    private static final String NAME_1 = "Name1";
+    private static final Resume resume1 = new Resume(UUID_1, NAME_1);
 
     private static final String UUID_2 = "uuid2";
-    private static final Resume resume2 = new Resume(UUID_2);
+    private static final String NAME_2 = "Name1";
+    private static final Resume resume2 = new Resume(UUID_2, NAME_2);
 
     private static final String UUID_3 = "uuid3";
-    private static final Resume resume3 = new Resume(UUID_3);
+    private static final String NAME_3 = "Name1";
+    private static final Resume resume3 = new Resume(UUID_3, NAME_3);
 
     private static final String UUID_TEST = "test_uuid";
-    public static final Resume resume4 = new Resume(UUID_TEST);
+    private static final String NAME_TEST = "Name1";
+    public static final Resume resume4 = new Resume(UUID_TEST, NAME_TEST);
 
     private Storage storage;
 
@@ -68,7 +72,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume(UUID_1, NAME_TEST);
         storage.update(newResume);
         Assert.assertTrue(newResume == storage.get(UUID_1));
     }
@@ -90,17 +94,18 @@ public abstract class AbstractArrayStorageTest {
         storage.save(resume1);
     }
 
+    // TODO remain only for Arrays implementations
     @Test(expected = StorageException.class)
     public void saveOverFlow() {
         try {
             for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
+                storage.save(new Resume("Name" + i));
             }
         }
         catch (StorageException error) {
             Assert.fail();
         }
-        storage.save(new Resume());
+        storage.save(new Resume("NameOverFlow"));
     }
 
     @Test

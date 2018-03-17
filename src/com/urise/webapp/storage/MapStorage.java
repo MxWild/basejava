@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO implement
+// TODO create new MapStorage with Search Key not uuid
 public class MapStorage extends AbstractStorage {
 
     private Map<String, Resume> resumeMap = new HashMap<>();
