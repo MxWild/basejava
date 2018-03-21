@@ -26,4 +26,5 @@ public class ArrayStorage extends AbstractArrayStorage {
         // -1 если такого резюме нет в storage
         return -1;
     }
+
 }

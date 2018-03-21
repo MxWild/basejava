@@ -49,9 +49,15 @@ public class ListStorage extends AbstractStorage {
         resumeList.clear();
     }
 
+//    @Override
+//    public Resume[] getAll() {
+//        return resumeList.toArray(new Resume[resumeList.size()]);
+//    }
+
+
     @Override
-    public Resume[] getAll() {
-        return resumeList.toArray(new Resume[resumeList.size()]);
+    protected List<Resume> doGetAll() {
+        return resumeList;
     }
 
     @Override

@@ -2,9 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 // TODO implement
 // TODO create new MapStorage with Search Key not uuid
@@ -59,11 +57,17 @@ public class MapStorage extends AbstractStorage {
         resumeMap.clear();
     }
 
+//    @Override
+//    public Resume[] getAll() {
+//        // взял тут http://www.baeldung.com/convert-map-values-to-array-list-set
+//        Collection<Resume> values = resumeMap.values();
+//        return values.toArray(new Resume[values.size()]);
+//    }
+
+
     @Override
-    public Resume[] getAll() {
-        // взял тут http://www.baeldung.com/convert-map-values-to-array-list-set
-        Collection<Resume> values = resumeMap.values();
-        return values.toArray(new Resume[values.size()]);
+    protected List<Resume> doGetAll() {
+        return Collections.emptyList();
     }
 
     @Override

@@ -5,7 +5,8 @@ import java.util.UUID;
 /**
  * com.urise.webapp.model.Resume class
  */
-public class Resume { // implements Comparable<Resume> {
+public class Resume implements Comparable<Resume> {
+
 
     // Unique identifier
     private final String uuid;
@@ -25,10 +26,19 @@ public class Resume { // implements Comparable<Resume> {
         return uuid;
     }
 
+//    public String getFullName() {
+//        return fullName;
+//    }
+
     @Override
     public String toString() {
         return uuid + " : " + fullName;
     }
+
+    //    @Override
+//    public int compareTo(Resume o) {
+//        return uuid.compareTo(o.uuid);
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -41,20 +51,16 @@ public class Resume { // implements Comparable<Resume> {
         return fullName.equals(resume.fullName);
     }
 
-//    @Override
-//    public int hashCode1() {
-//        return uuid.hashCode();
-//    }
-
     @Override
     public int hashCode() {
-        int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        int result = uuid.hashCode();
+        result = 31 * result + fullName.hashCode();
         return result;
     }
 
-    //    @Override
-//    public int compareTo(Resume o) {
-//        return uuid.compareTo(o.uuid);
-//    }
+    @Override
+    public int compareTo(Resume o) {
+        int compFullName = this.fullName.compareTo(o.fullName);
+        return compFullName != 0 ? compFullName : this.uuid.compareTo(o.uuid);
+    }
 }

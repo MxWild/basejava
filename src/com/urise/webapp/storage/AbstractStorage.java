@@ -4,6 +4,9 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     // метод для поиска ключа резюме
@@ -23,6 +26,9 @@ public abstract class AbstractStorage implements Storage {
 
     // получить резюме по ключу
     protected abstract Resume doGet(Object key);
+
+    // получить все резюме
+    protected abstract List<Resume> doGetAll();
 
     // выделяю NotExistStorageException
     private Object checkNotExistStorageException(String uuid) {
@@ -61,6 +67,13 @@ public abstract class AbstractStorage implements Storage {
     public Resume get(String uuid) {
         Object key = checkNotExistStorageException(uuid);
         return doGet(key);
+    }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> list = doGetAll();
+        Collections.sort(list);
+        return list;
     }
 
 }
