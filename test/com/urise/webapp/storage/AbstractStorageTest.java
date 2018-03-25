@@ -96,20 +96,6 @@ public abstract class AbstractStorageTest {
         storage.save(resume1);
     }
 
-//    // TODO remain only for Arrays implementations
-//    @Test(expected = StorageException.class)
-//    public void saveOverFlow() {
-//        try {
-//            for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-//                storage.save(new Resume("Name" + i));
-//            }
-//        }
-//        catch (StorageException error) {
-//            Assert.fail();
-//        }
-//        storage.save(new Resume("NameOverFlow"));
-//    }
-
     @Test
     public void getAll() {
         List<Resume> resumes = storage.getAllSorted();

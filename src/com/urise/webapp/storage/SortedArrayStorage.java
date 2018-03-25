@@ -19,8 +19,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
         @Override
         public int compare(Resume o1, Resume o2) {
-           // int compareFullName = o1.getFullName().compareTo(o2.getFullName());
-           // return compareFullName != 0 ? compareFullName : o1.getUuid().compareTo(o2.getUuid());
             return o1.getUuid().compareTo(o2.getUuid());
         }
     };
@@ -51,7 +49,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         // Методы поиска возвращают индекс найденного элемента массива.
         // Если элемент не найден, то возвращается отрицательное число, означающее индекс,
         // с которым элемент был бы вставлен в массив в заданном порядке, с обратным знаком.
-       return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_COMPARATOR);  // TODO для лябд
+       return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_COMPARATOR);
 //       return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 

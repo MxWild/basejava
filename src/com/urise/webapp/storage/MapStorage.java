@@ -4,7 +4,6 @@ import com.urise.webapp.model.Resume;
 
 import java.util.*;
 
-// TODO implement
 // TODO create new MapStorage with Search Key not uuid
 public class MapStorage extends AbstractStorage {
 
@@ -12,29 +11,17 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getKey(String uuid) {
-
-//        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
-//            if (uuid.equals(pair.getValue().getUuid())) return uuid;
-//        }
-
         return uuid;
     }
 
     @Override
     protected boolean isExist(Object key) {
-
-//        for (Map.Entry<String, Resume> pair : resumeMap.entrySet()) {
-//            if (key.equals(pair.getValue().getUuid())) return true;
-//        }
-
         return resumeMap.containsKey(key);
-
-        //return false;
     }
 
     @Override
     protected void doSave(Resume r, Object key) {
-            resumeMap.put(r.getUuid(), r);
+        resumeMap.put(r.getUuid(), r);
     }
 
     @Override
@@ -67,7 +54,8 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> doGetAll() {
-        return Collections.emptyList();
+        List<Resume> resumeList = new ArrayList<>(resumeMap.values());
+        return resumeList;
     }
 
     @Override

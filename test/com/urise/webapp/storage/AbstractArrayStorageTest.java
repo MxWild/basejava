@@ -15,7 +15,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
         super(storage);
     }
 
-    // TODO remain only for Arrays implementations
     @Test(expected = StorageException.class)
     public void saveOverFlow() {
         try {
