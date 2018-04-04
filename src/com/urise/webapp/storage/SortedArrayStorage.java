@@ -15,13 +15,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 //        }
 //    }
 
-    private static final Comparator<Resume> RESUME_COMPARATOR = new Comparator<Resume>() {
-
-        @Override
-        public int compare(Resume o1, Resume o2) {
-            return o1.getUuid().compareTo(o2.getUuid());
-        }
-    };
+    private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
 
     @Override
     protected void insertResume(Resume r, int index) {
@@ -44,7 +38,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected Integer getKey(String uuid) {
-        Resume searchKey = new Resume(uuid, null);
+        Resume searchKey = new Resume(uuid, "dummy");
         //searchKey.setUuid(uuid)  --  remove on HW4;
         // Методы поиска возвращают индекс найденного элемента массива.
         // Если элемент не найден, то возвращается отрицательное число, означающее индекс,

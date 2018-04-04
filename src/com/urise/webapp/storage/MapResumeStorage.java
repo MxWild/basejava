@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO create new MapStorage with Search Key not uuid
 public class MapResumeStorage extends AbstractStorage {
 
     private Map<String, Resume> map = new HashMap<>();
@@ -47,18 +46,9 @@ public class MapResumeStorage extends AbstractStorage {
         map.clear();
     }
 
-//    @Override
-//    public Resume[] getAll() {
-//        // взял тут http://www.baeldung.com/convert-map-values-to-array-list-set
-//        Collection<Resume> values = map.values();
-//        return values.toArray(new Resume[values.size()]);
-//    }
-
-
     @Override
-    protected List<Resume> doGetAll() {
-        List<Resume> resumeList = new ArrayList<>(map.values());
-        return resumeList;
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override

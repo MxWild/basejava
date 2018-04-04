@@ -29,42 +29,17 @@ public class MainCollections {
         collection.add(resume2);
         collection.add(resume3);
 
-        // Удаление в итератора, ниже через лямбду
-//      Iterator<Resume> iterator = collection.iterator();
-//        while (iterator.hasNext()) {
-//            Resume r = iterator.next();
-//
-//            if(Objects.equals(r.getUuid(), UUID_2)) {
-//                iterator.remove();
-//            }
-//        }
-
-        // Тоже самое только через лябду
         collection.removeIf(r -> Objects.equals(r.getUuid(), UUID_2));
-
-//        for (Resume r : collection) {
-//            System.out.println(r);
-//            if (Objects.equals(r.getUuid(), UUID_1)) {
-//                //collection.remove(r);
-//            }
-//        }
 
         System.out.println(collection.toString() + "\n");
 
         // Инициализация через анонимный класс
-        Map<String, Resume> map = new HashMap<String, Resume>() {
-            {
-                put(UUID_1,resume1);
-                put(UUID_2,resume2);
-                put(UUID_3,resume3);
-            }
-        };
+        Map<String, Resume> map = new HashMap<>();
 
-        for (String uuid : map.keySet()) {
-            System.out.println(map.get(uuid));
-        }
+        map.put(UUID_1, resume1);
+        map.put(UUID_2, resume2);
+        map.put(UUID_3, resume3);
 
-        System.out.println();
 
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());

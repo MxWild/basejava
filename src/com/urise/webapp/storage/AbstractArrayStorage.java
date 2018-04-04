@@ -4,7 +4,6 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> doGetAll() {
+    protected List<Resume> doCopyAll() {
         return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
@@ -35,11 +34,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected boolean isExist(Object index) {
         return (Integer) index >= 0;
     }
-
-//    @Override
-//    protected Object getKey(String uuid) {
-//        return getResumeIndex(uuid);
-//    }
 
     @Override
     protected void doSave(Resume r, Object index) {
@@ -72,11 +66,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-//    public Resume[] getAll() {
-//        return Arrays.copyOfRange(storage, 0, size);
-//    }
-
-    //protected abstract int getResumeIndex(String uuid);
     protected abstract Integer getKey(String uuid);
 
     protected abstract void insertResume(Resume r, int index);

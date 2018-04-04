@@ -4,7 +4,6 @@ import com.urise.webapp.model.Resume;
 
 import java.util.*;
 
-// TODO create new MapStorage with Search Key not uuid
 public class MapStorage extends AbstractStorage {
 
     private Map<String, Resume> resumeMap = new HashMap<>();
@@ -44,18 +43,9 @@ public class MapStorage extends AbstractStorage {
         resumeMap.clear();
     }
 
-//    @Override
-//    public Resume[] getAll() {
-//        // взял тут http://www.baeldung.com/convert-map-values-to-array-list-set
-//        Collection<Resume> values = resumeMap.values();
-//        return values.toArray(new Resume[values.size()]);
-//    }
-
-
     @Override
-    protected List<Resume> doGetAll() {
-        List<Resume> resumeList = new ArrayList<>(resumeMap.values());
-        return resumeList;
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(resumeMap.values());
     }
 
     @Override

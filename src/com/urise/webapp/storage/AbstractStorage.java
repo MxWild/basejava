@@ -28,7 +28,7 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Resume doGet(Object key);
 
     // получить все резюме
-    protected abstract List<Resume> doGetAll();
+    protected abstract List<Resume> doCopyAll();
 
     // выделяю NotExistStorageException
     private Object checkNotExistStorageException(String uuid) {
@@ -71,7 +71,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> list = doGetAll();
+        List<Resume> list = doCopyAll();
         Collections.sort(list);
         return list;
     }
