@@ -12,7 +12,7 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    Map<ContactSection, String> contactSection = new EnumMap<>(ContactSection.class);
+    private final Map<ContactSection, String> contacts = new EnumMap<>(ContactSection.class);
 
 
     public Resume(String fullName) {
@@ -28,6 +28,10 @@ public class Resume implements Comparable<Resume> {
 
     public String getUuid() {
         return uuid;
+    }
+
+    public String getContactSection(ContactSection contactSection) {
+        return contacts.get(contactSection);
     }
 
     @Override
