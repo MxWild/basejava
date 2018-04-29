@@ -1,7 +1,6 @@
 package com.urise.webapp.model;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * com.urise.webapp.model.Resume class
@@ -12,6 +11,8 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private final String uuid;
     private String fullName;
+
+    Map<ContactSection, String> contactSection = new EnumMap<>(ContactSection.class);
 
 
     public Resume(String fullName) {
