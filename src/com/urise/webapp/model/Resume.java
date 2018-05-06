@@ -13,6 +13,7 @@ public class Resume implements Comparable<Resume> {
     private String fullName;
 
     private final Map<ContactSection, String> contacts = new EnumMap<>(ContactSection.class);
+    private final Map<SectionType, Description> sections = new EnumMap<>(SectionType.class);
 
 
     public Resume(String fullName) {
@@ -32,6 +33,10 @@ public class Resume implements Comparable<Resume> {
 
     public String getContactSection(ContactSection contactSection) {
         return contacts.get(contactSection);
+    }
+
+    public Description getDescription(SectionType sectionType) {
+        return sections.get(sectionType);
     }
 
     @Override
