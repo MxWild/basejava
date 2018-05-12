@@ -3,7 +3,7 @@ package com.urise.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSection extends Description {
+public class OrganizationSection extends Section {
 
     private final List<Organization> organizations;
 
