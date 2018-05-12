@@ -31,12 +31,20 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-    public String getContactSection(ContactSection contactSection) {
+    public String getContacts(ContactSection contactSection) {
         return contacts.get(contactSection);
     }
 
-    public Section getDescription(SectionType sectionType) {
+    public void setContacts(ContactSection contactSection, String value) {
+        contacts.put(contactSection, value);
+    }
+
+    public Section getSections(SectionType sectionType) {
         return sections.get(sectionType);
+    }
+
+    public void setSections(SectionType sectionType, Section section) {
+        sections.put(sectionType, section);
     }
 
     @Override
