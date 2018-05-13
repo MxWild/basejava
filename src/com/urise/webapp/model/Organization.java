@@ -1,18 +1,18 @@
 package com.urise.webapp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Organization {
 
     private Link organizationUrl;
 
-    private Date dateStart;
-    private Date dateEnd;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
     private String title;
     private String description;
 
-    public Organization(String name, String url, Date dateStart, Date dateEnd, String title, String description) {
+    public Organization(String name, String url, LocalDate dateStart, LocalDate dateEnd, String title, String description) {
         Objects.requireNonNull(title, "Title required");
         Objects.requireNonNull(dateStart, "dateStart required");
         Objects.requireNonNull(dateEnd, "dateEnd required");
