@@ -3,6 +3,7 @@ package com.urise.webapp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainFile {
 
@@ -30,6 +31,25 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        PrintDirectoryResursive(dir);
+
+    }
+
+    private static void PrintDirectoryResursive(File dir) {
+        File[] files = dir.listFiles();
+
+        Objects.requireNonNull(files, "Empty dir");
+
+        for (File file : files) {
+            if (file.isFile()) {
+                System.out.println("This is file: " + file.getName());
+            } else if (file.isDirectory()) {
+                System.out.println("This is directory: " + file.getName());
+                PrintDirectoryResursive(file);
+            }
+        }
+
     }
 
 }
