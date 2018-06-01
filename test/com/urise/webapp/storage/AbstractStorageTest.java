@@ -3,12 +3,12 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
-import com.urise.webapp.model.ContactType;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.Month;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
@@ -34,6 +34,30 @@ public abstract class AbstractStorageTest {
         resume1.setContacts(ContactType.EMAIL, "maximus@maximus.ru");
         resume1.setContacts(ContactType.GITHUB, "https://github.com/maximus");
         resume1.setContacts(ContactType.SKYPE, "maximus@skype.ru");
+
+        resume1.setSections(SectionType.PERSONAL, new DescSection("My super description about me!"));
+        resume1.setSections(SectionType.OBJECTIVE, new DescSection("My objective"));
+        resume1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
+        resume1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "Spring", "Hibernate", "JavaScript"));
+
+        resume1.setSections(SectionType.EDUCATION, new OrganizationSection(
+                new Organization("University", "http://university.ru",
+                        new Organization.Position(1996, Month.SEPTEMBER, 2001, Month.MAY, "Engeener", "Facultet")),
+                new Organization("Institute",  null,
+                        new Organization.Position(2001, Month.SEPTEMBER, "Bakalavr", "Magistratura"))
+        ));
+
+        resume1.setSections(SectionType.EXPERIENCE, new OrganizationSection(
+                new Organization("Work3", "http://work3.com",
+                        new Organization.Position(2015, Month.JANUARY, "Developer", "Some description")),
+                new Organization("Work2", "http://work2.com",
+                new Organization.Position(2013, Month.APRIL, 2014, Month.DECEMBER, "Admin", "Some Admin roles")),
+                new Organization("Work1", "http://work1.com",
+                new Organization.Position(2011, Month.JULY, 2014, Month.DECEMBER, "Manager", "Some managementwoles"))
+        ));
+
+        resume3.setContacts(ContactType.TEL, "+7 923 233 03 03");
+        resume3.setContacts(ContactType.EMAIL, "resume2@yandex.ru");
     }
 
     protected Storage storage;

@@ -1,6 +1,10 @@
 package com.urise.webapp.model;
 
+import com.urise.webapp.util.DateUtil;
+
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,14 +42,22 @@ public class Organization {
         return result;
     }
 
-    private static class Position {
+    public static class Position {
 
         private LocalDate dateStart;
         private LocalDate dateEnd;
         private String title;
         private String description;
 
-        public Position(String name, String url, LocalDate dateStart, LocalDate dateEnd, String title, String description) {
+        public Position(int startYear, Month startMonth, String title, String description) {
+            this(DateUtil.of(startYear, startMonth), LocalDate.now(), title, description);
+        }
+
+        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(DateUtil.of(startYear, startMonth), DateUtil.of(endYear, endMonth), title, description);
+        }
+
+        public Position(LocalDate dateStart, LocalDate dateEnd, String title, String description) {
             Objects.requireNonNull(title, "Title required");
             Objects.requireNonNull(dateStart, "dateStart required");
             Objects.requireNonNull(dateEnd, "dateEnd required");
@@ -54,6 +66,8 @@ public class Organization {
             this.title = title;
             this.description = description;
         }
+
+
 
         public LocalDate getDateStart() {
             return dateStart;
