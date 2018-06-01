@@ -32,11 +32,11 @@ public class MainFile {
             throw new RuntimeException(e);
         }
 
-        PrintDirectoryResursive(dir);
+        PrintDirectoryRecursive(dir);
 
     }
 
-    private static void PrintDirectoryResursive(File dir) {
+    private static void PrintDirectoryRecursive(File dir) {
         File[] files = dir.listFiles();
 
         Objects.requireNonNull(files, "Empty dir");
@@ -46,7 +46,7 @@ public class MainFile {
                 System.out.println("This is file: " + file.getName());
             } else if (file.isDirectory()) {
                 System.out.println("This is directory: " + file.getName());
-                PrintDirectoryResursive(file);
+                PrintDirectoryRecursive(file);
             }
         }
 

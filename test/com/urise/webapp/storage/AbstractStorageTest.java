@@ -3,6 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
+import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,6 +28,13 @@ public abstract class AbstractStorageTest {
     private static final String UUID_TEST = "test_uuid";
     private static final String NAME_TEST = "test_Name";
     public static final Resume resume4 = new Resume(UUID_TEST, NAME_TEST);
+
+    static {
+        resume1.setContacts(ContactType.TEL, "+7 922 222 22 22");
+        resume1.setContacts(ContactType.EMAIL, "maximus@maximus.ru");
+        resume1.setContacts(ContactType.GITHUB, "https://github.com/maximus");
+        resume1.setContacts(ContactType.SKYPE, "maximus@skype.ru");
+    }
 
     protected Storage storage;
 
