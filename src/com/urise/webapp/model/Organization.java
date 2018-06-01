@@ -67,8 +67,6 @@ public class Organization {
             this.description = description;
         }
 
-
-
         public LocalDate getDateStart() {
             return dateStart;
         }
