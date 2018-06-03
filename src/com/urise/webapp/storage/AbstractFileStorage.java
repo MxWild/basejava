@@ -42,10 +42,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume r, File file) {
         try {
             file.createNewFile();
-            doWrite(r, file);
+           // doWrite(r, file);
         } catch (IOException e) {
             throw new StorageException("IOError ", file.getName(), e);
         }
+        doUpdate(r, file);
     }
 
     @Override
@@ -78,9 +79,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> doCopyAll() {
         File[] files = directory.listFiles();
-
+        if (files == null) {
+            throw new StorageException("Directory is empty or read error", null);
+        }
         List<Resume> resumeList = new ArrayList<>(files.length);
-
         for(File file : files) {
             resumeList.add(doGet(file));
         }
@@ -91,14 +93,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        for (File file : files) {
-            doDelete(file);
+        if (files != null) {
+            for (File file : files) {
+                doDelete(file);
+            }
         }
     }
 
     @Override
     public int size() {
         String[] list = directory.list();
+        if (list == null) {
+            throw new StorageException("Directory is empty or read error", null);
+        }
         return  list.length;
     }
 }
