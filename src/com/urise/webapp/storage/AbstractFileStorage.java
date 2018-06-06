@@ -97,6 +97,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             for (File file : files) {
                 doDelete(file);
             }
+        } else {
+            throw new StorageException("Directory is empty or read error", null);
         }
     }
 
