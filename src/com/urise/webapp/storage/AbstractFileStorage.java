@@ -42,7 +42,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume r, File file) {
         try {
             file.createNewFile();
-           // doWrite(r, file);
         } catch (IOException e) {
             throw new StorageException("IOError ", file.getName(), e);
         }
@@ -82,8 +81,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         if (files == null) {
             throw new StorageException("Directory is empty or read error", null);
         }
+
         List<Resume> resumeList = new ArrayList<>(files.length);
-        for(File file : files) {
+        for (File file : files) {
             resumeList.add(doGet(file));
         }
 
@@ -108,6 +108,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         if (list == null) {
             throw new StorageException("Directory is empty or read error", null);
         }
-        return  list.length;
+        return list.length;
     }
 }

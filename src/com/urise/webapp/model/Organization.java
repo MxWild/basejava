@@ -3,12 +3,8 @@ package com.urise.webapp.model;
 import com.urise.webapp.util.DateUtil;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Organization {
 
@@ -19,8 +15,8 @@ public class Organization {
         this(new Link(name, url), Arrays.asList(positions));
     }
 
-    public Organization(Link link, List<Position> positions) {
-        this.homePage = link;
+    public Organization(Link homePage, List<Position> positions) {
+        this.homePage = homePage;
         this.positions = positions;
     }
 
@@ -42,6 +38,11 @@ public class Organization {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Organization{" + "homePage=" + homePage + ", positions=" + positions + '}';
+    }
+
     public static class Position {
 
         private LocalDate dateStart;
@@ -50,7 +51,8 @@ public class Organization {
         private String description;
 
         public Position(int startYear, Month startMonth, String title, String description) {
-            this(DateUtil.of(startYear, startMonth), LocalDate.now(), title, description);
+//            this(DateUtil.of(startYear, startMonth), LocalDate.now(), title, description);
+            this(DateUtil.of(startYear, startMonth), DateUtil.NOW, title, description);
         }
 
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {

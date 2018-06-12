@@ -2,7 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,39 +14,39 @@ public abstract class AbstractStorageTest {
 
     private static final String UUID_1 = "uuid1";
     private static final String NAME_1 = "Name1";
-    private static final Resume resume1 = new Resume(UUID_1, NAME_1);
+    private static final Resume RESUME_1 = new Resume(UUID_1, NAME_1);
 
     private static final String UUID_2 = "uuid2";
     private static final String NAME_2 = "Name2";
-    private static final Resume resume2 = new Resume(UUID_2, NAME_2);
+    private static final Resume RESUME_2 = new Resume(UUID_2, NAME_2);
 
     private static final String UUID_3 = "uuid3";
     private static final String NAME_3 = "Name3";
-    private static final Resume resume3 = new Resume(UUID_3, NAME_3);
+    private static final Resume RESUME_3 = new Resume(UUID_3, NAME_3);
 
     private static final String UUID_TEST = "test_uuid";
     private static final String NAME_TEST = "test_Name";
-    public static final Resume resume4 = new Resume(UUID_TEST, NAME_TEST);
+    public static final Resume RESUME_4 = new Resume(UUID_TEST, NAME_TEST);
 
     static {
-        resume1.setContacts(ContactType.TEL, "+7 922 222 22 22");
-        resume1.setContacts(ContactType.EMAIL, "maximus@maximus.ru");
-        resume1.setContacts(ContactType.GITHUB, "https://github.com/maximus");
-        resume1.setContacts(ContactType.SKYPE, "maximus@skype.ru");
+        RESUME_1.setContacts(ContactType.TEL, "+7 922 222 22 22");
+        RESUME_1.setContacts(ContactType.EMAIL, "maximus@maximus.ru");
+        RESUME_1.setContacts(ContactType.GITHUB, "https://github.com/maximus");
+        RESUME_1.setContacts(ContactType.SKYPE, "maximus@skype.ru");
 
-        resume1.setSections(SectionType.PERSONAL, new DescSection("My super description about me!"));
-        resume1.setSections(SectionType.OBJECTIVE, new DescSection("My objective"));
-        resume1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
-        resume1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "Spring", "Hibernate", "JavaScript"));
+        RESUME_1.setSections(SectionType.PERSONAL, new DescSection("My super description about me!"));
+        RESUME_1.setSections(SectionType.OBJECTIVE, new DescSection("My objective"));
+        RESUME_1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
+        RESUME_1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "Spring", "Hibernate", "JavaScript"));
 
-        resume1.setSections(SectionType.EDUCATION, new OrganizationSection(
+        RESUME_1.setSections(SectionType.EDUCATION, new OrganizationSection(
                 new Organization("University", "http://university.ru",
                         new Organization.Position(1996, Month.SEPTEMBER, 2001, Month.MAY, "Engeener", "Facultet")),
                 new Organization("Institute",  null,
                         new Organization.Position(2001, Month.SEPTEMBER, "Bakalavr", "Magistratura"))
         ));
 
-        resume1.setSections(SectionType.EXPERIENCE, new OrganizationSection(
+        RESUME_1.setSections(SectionType.EXPERIENCE, new OrganizationSection(
                 new Organization("Work3", "http://work3.com",
                         new Organization.Position(2015, Month.JANUARY, "Developer", "Some description")),
                 new Organization("Work2", "http://work2.com",
@@ -56,8 +55,8 @@ public abstract class AbstractStorageTest {
                 new Organization.Position(2011, Month.JULY, 2014, Month.DECEMBER, "Manager", "Some managementwoles"))
         ));
 
-        resume3.setContacts(ContactType.TEL, "+7 923 233 03 03");
-        resume3.setContacts(ContactType.EMAIL, "resume2@yandex.ru");
+        RESUME_3.setContacts(ContactType.TEL, "+7 923 233 03 03");
+        RESUME_3.setContacts(ContactType.EMAIL, "RESUME_3@yandex.ru");
     }
 
     protected Storage storage;
@@ -69,9 +68,9 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(resume1);
-        storage.save(resume2);
-        storage.save(resume3);
+        storage.save(RESUME_1);
+        storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Test
@@ -87,9 +86,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void save() {
-        storage.save(resume4);
+        storage.save(RESUME_4);
         assertSize(4);
-        Assert.assertEquals(resume4, storage.get(UUID_TEST));
+        Assert.assertEquals(RESUME_4, storage.get(UUID_TEST));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -113,9 +112,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        Assert.assertEquals(resume1, storage.get(UUID_1));
-        Assert.assertEquals(resume2, storage.get(UUID_2));
-        Assert.assertEquals(resume3, storage.get(UUID_3));
+        Assert.assertEquals(RESUME_1, storage.get(UUID_1));
+        Assert.assertEquals(RESUME_2, storage.get(UUID_2));
+        Assert.assertEquals(RESUME_3, storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -125,19 +124,19 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void getExist() {
-        storage.save(resume1);
+        storage.save(RESUME_1);
     }
 
     @Test
     public void getAll() {
         List<Resume> resumes = storage.getAllSorted();
         Assert.assertEquals(3, resumes.size());
-//        Assert.assertEquals(resume1, resumes[0]);
-//        Assert.assertEquals(resume2, resumes[1]);
-//        Assert.assertEquals(resume3, resumes[2]);
-        assertGet(resume1);
-        assertGet(resume2);
-        assertGet(resume3);
+//        Assert.assertEquals(RESUME_1, resumes[0]);
+//        Assert.assertEquals(RESUME_2, resumes[1]);
+//        Assert.assertEquals(RESUME_3, resumes[2]);
+        assertGet(RESUME_1);
+        assertGet(RESUME_2);
+        assertGet(RESUME_3);
     }
 
     public void assertSize(int size) {
