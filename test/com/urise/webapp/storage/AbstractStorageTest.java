@@ -14,6 +14,7 @@ import java.util.List;
 public abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = new File("./storage");
+    protected static final String STORAGE_DIR_STRING = "./storage/path";
 
     private static final String UUID_1 = "uuid1";
     private static final String NAME_1 = "Name1";

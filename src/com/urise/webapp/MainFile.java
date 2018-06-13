@@ -42,9 +42,9 @@ public class MainFile {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("\tThis is file: " + file.getName());
+                    System.out.println("\tFile -> " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println("This is directory: " + file.getName());
+                    System.out.println("Directory -> " + file.getName());
                     printDirectoryRecursive(file);
                 }
             }
