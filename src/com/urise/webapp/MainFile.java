@@ -16,7 +16,7 @@ public class MainFile {
             throw new RuntimeException("Error: ", e);
         }
 
-        File dir = new File("./src/com/urise/webapp");
+        File dir = new File("./src/com/");
 
         String[] list = dir.list();
         if (list != null) {
@@ -31,21 +31,21 @@ public class MainFile {
             throw new RuntimeException(e);
         }
 
-        printDirectoryRecursive(dir);
+        printDirectoryRecursive(dir, "");
 
     }
 
-    private static void printDirectoryRecursive(File dir) {
+    private static void printDirectoryRecursive(File dir, String tab) {
         File[] files = dir.listFiles();
 
 //        Objects.requireNonNull(files, "Empty dir");
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("\tFile -> " + file.getName());
+//                    System.out.println(tab + "File -> " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println("Directory -> " + file.getName());
-                    printDirectoryRecursive(file);
+                    System.out.println(tab + "Directory -> " + file.getName());
+                    printDirectoryRecursive(file, tab += " ");
                 }
             }
         }
