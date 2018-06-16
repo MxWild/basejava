@@ -6,7 +6,7 @@ import com.urise.webapp.util.XmlParser;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class XmlStreamSerializer implements  SerializeStrategy{
+public class XmlStreamSerializer implements SerializeStrategy {
 
     private XmlParser xmlParser;
 
@@ -25,7 +25,7 @@ public class XmlStreamSerializer implements  SerializeStrategy{
     @Override
     public Resume doRead(InputStream is) throws IOException {
         try (Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-            return  xmlParser.unmarshall(reader);
+            return xmlParser.unmarshall(reader);
         }
     }
 }

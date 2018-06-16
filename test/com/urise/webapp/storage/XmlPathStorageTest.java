@@ -3,9 +3,9 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.storage.serialize.XmlStreamSerializer;
 
-public class XmlStreamPathStorageTest extends AbstractStorageTest {
+public class XmlPathStorageTest extends AbstractStorageTest {
 
-    public XmlStreamPathStorageTest() {
+    public XmlPathStorageTest() {
         super(new PathStorage(STORAGE_DIR.getAbsolutePath(), new XmlStreamSerializer()));
     }
 
