@@ -38,18 +38,32 @@ public class MainFile {
     private static void printDirectoryRecursive(File dir, String tab) {
         File[] files = dir.listFiles();
 
-//        Objects.requireNonNull(files, "Empty dir");
         if (files != null) {
             for (File file : files) {
-                if (file.isFile()) {
-//                    System.out.println(tab + "File -> " + file.getName());
-                } else if (file.isDirectory()) {
-                    System.out.println(tab + "Directory -> " + file.getName());
-                    printDirectoryRecursive(file, tab += " ");
+                if (file.isDirectory()) {
+                    System.out.println(tab + " -> " + file.getName());
+                    printDirectoryRecursive(file, tab + "   ");
                 }
             }
         }
 
     }
+
+//    private static void printDirectoryRecursive(File dir, String tab) {
+//        File[] files = dir.listFiles();
+//
+////        Objects.requireNonNull(files, "Empty dir");
+//        if (files != null) {
+//            for (File file : files) {
+//                if (file.isFile()) {
+////                    System.out.println(tab + "File -> " + file.getName());
+//                } else if (file.isDirectory()) {
+//                    System.out.println(tab + "Directory -> " + file.getName());
+//                    printDirectoryRecursive(file, tab += " ");
+//                }
+//            }
+//        }
+//
+//    }
 
 }
