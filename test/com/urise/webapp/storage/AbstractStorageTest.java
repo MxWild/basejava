@@ -37,8 +37,8 @@ public abstract class AbstractStorageTest {
         RESUME_1.setContacts(ContactType.GITHUB, "https://github.com/maximus");
         RESUME_1.setContacts(ContactType.SKYPE, "maximus@skype.ru");
 
-        RESUME_1.setSections(SectionType.PERSONAL, new DescSection("My super description about me!"));
-        RESUME_1.setSections(SectionType.OBJECTIVE, new DescSection("My objective"));
+        RESUME_1.setSections(SectionType.PERSONAL, new TextSection("My super description about me!"));
+        RESUME_1.setSections(SectionType.OBJECTIVE, new TextSection("My objective"));
         RESUME_1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
         RESUME_1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "Spring", "Hibernate", "JavaScript"));
 

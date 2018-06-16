@@ -10,6 +10,9 @@ public class ListSection extends Section {
 
     private List<String> list;
 
+    public ListSection() {
+    }
+
     public ListSection(String... items) {
         this(Arrays.asList(items));
     }
