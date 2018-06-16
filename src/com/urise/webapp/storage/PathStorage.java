@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
 
@@ -24,12 +25,7 @@ public class PathStorage extends AbstractStorage<Path> {
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + " is not directory or is not writable");
         }
-//        this.directory = directory;
     }
-
-//    protected abstract void ser doWrite(Resume r, OutputStream os) throws IOException;
-
-//    protected abstract Resume doRead(InputStream is) throws IOException;
 
     @Override
     protected Path getKey(String uuid) {
@@ -83,27 +79,31 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     protected List<Resume> doCopyAll() {
         try {
-            return Files.list(directory).map(this::doGet).collect(Collectors.toList());
+            return getFilesList().map(this::doGet).collect(Collectors.toList());
         } catch (IOException e) {
-            throw new StorageException("Directory is empty or read error", null);
+            throw new StorageException("Directory is empty or read error");
         }
     }
 
     @Override
     public void clear() {
         try {
-            Files.list(directory).forEach(this::doDelete);
+            getFilesList().forEach(this::doDelete);
         } catch (IOException e) {
-            throw new StorageException("Path delete error", null);
+            throw new StorageException("Path delete error");
         }
     }
 
     @Override
     public int size() {
         try {
-            return (int) Files.list(directory).count();
+            return (int) getFilesList().count();
         } catch (IOException e) {
-            throw new StorageException("Directory is empty or read error", null);
+            throw new StorageException("Directory is empty or read error");
         }
+    }
+
+    private Stream<Path> getFilesList() throws IOException {
+        return Files.list(directory);
     }
 }

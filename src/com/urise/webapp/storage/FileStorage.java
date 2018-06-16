@@ -14,7 +14,7 @@ public class FileStorage extends AbstractStorage<File> {
     private File directory;
     private SerializeStrategy serializeStrategy;
 
-    protected FileStorage(File directory, SerializeStrategy serializeStrategy) {
+    FileStorage(File directory, SerializeStrategy serializeStrategy) {
         this.serializeStrategy = serializeStrategy;
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
@@ -25,10 +25,6 @@ public class FileStorage extends AbstractStorage<File> {
         }
         this.directory = directory;
     }
-
-//    protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
-
-//    protected abstract Resume doRead(InputStream is) throws IOException;
 
     @Override
     protected File getKey(String uuid) {
@@ -81,7 +77,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected List<Resume> doCopyAll() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Directory is empty or read error", null);
+            throw new StorageException("Directory is empty or read error");
         }
 
         List<Resume> resumeList = new ArrayList<>(files.length);
@@ -100,7 +96,7 @@ public class FileStorage extends AbstractStorage<File> {
                 doDelete(file);
             }
         } else {
-            throw new StorageException("Directory is empty or read error", null);
+            throw new StorageException("Directory is empty or read error");
         }
     }
 
@@ -108,7 +104,7 @@ public class FileStorage extends AbstractStorage<File> {
     public int size() {
         String[] list = directory.list();
         if (list == null) {
-            throw new StorageException("Directory is empty or read error", null);
+            throw new StorageException("Directory is empty or read error");
         }
         return list.length;
     }
