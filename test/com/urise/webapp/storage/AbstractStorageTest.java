@@ -32,24 +32,24 @@ public abstract class AbstractStorageTest {
     public static final Resume RESUME_4 = new Resume(UUID_TEST, NAME_TEST);
 
     static {
-        RESUME_1.setContacts(ContactType.TEL, "+7 922 222 22 22");
-        RESUME_1.setContacts(ContactType.EMAIL, "maximus@maximus.ru");
-        RESUME_1.setContacts(ContactType.GITHUB, "https://github.com/maximus");
-        RESUME_1.setContacts(ContactType.SKYPE, "maximus@skype.ru");
+        RESUME_1.addContacts(ContactType.TEL, "+7 922 222 22 22");
+        RESUME_1.addContacts(ContactType.EMAIL, "maximus@maximus.ru");
+        RESUME_1.addContacts(ContactType.GITHUB, "https://github.com/maximus");
+        RESUME_1.addContacts(ContactType.SKYPE, "maximus@skype.ru");
 
-        RESUME_1.setSections(SectionType.PERSONAL, new TextSection("My super description about me!"));
-        RESUME_1.setSections(SectionType.OBJECTIVE, new TextSection("My objective"));
-        RESUME_1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
-        RESUME_1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "Spring", "Hibernate", "JavaScript"));
+        RESUME_1.addSections(SectionType.PERSONAL, new TextSection("My super description about me!"));
+        RESUME_1.addSections(SectionType.OBJECTIVE, new TextSection("My objective"));
+        RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
+        RESUME_1.addSections(SectionType.QUALIFICATIONS, new ListSection("Java", "Spring", "Hibernate", "JavaScript"));
 
-        RESUME_1.setSections(SectionType.EDUCATION, new OrganizationSection(
+        RESUME_1.addSections(SectionType.EDUCATION, new OrganizationSection(
                 new Organization("University", "http://university.ru",
                         new Organization.Position(1996, Month.SEPTEMBER, 2001, Month.MAY, "Engeener", "Facultet")),
                 new Organization("Institute",  null,
                         new Organization.Position(2001, Month.SEPTEMBER, "Bakalavr", "Magistratura"))
         ));
 
-        RESUME_1.setSections(SectionType.EXPERIENCE, new OrganizationSection(
+        RESUME_1.addSections(SectionType.EXPERIENCE, new OrganizationSection(
                 new Organization("Work3", "http://work3.com",
                         new Organization.Position(2015, Month.JANUARY, "Developer", "Some description")),
                 new Organization("Work2", "http://work2.com",
@@ -58,8 +58,8 @@ public abstract class AbstractStorageTest {
                 new Organization.Position(2011, Month.JULY, 2014, Month.DECEMBER, "Manager", "Some managementwoles"))
         ));
 
-        RESUME_3.setContacts(ContactType.TEL, "+7 923 233 03 03");
-        RESUME_3.setContacts(ContactType.EMAIL, "RESUME_3@yandex.ru");
+        RESUME_3.addContacts(ContactType.TEL, "+7 923 233 03 03");
+        RESUME_3.addContacts(ContactType.EMAIL, "RESUME_3@yandex.ru");
     }
 
     protected Storage storage;

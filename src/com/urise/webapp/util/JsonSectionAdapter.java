@@ -4,6 +4,8 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
+//TODO интересный адаптер для Json - разобраться
+
 public class JsonSectionAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
     private static final String CLASSNAME = "CLASSNAME";
     private static final String INSTANCE = "INSTANCE";
