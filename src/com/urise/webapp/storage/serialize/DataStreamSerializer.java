@@ -3,6 +3,7 @@ package com.urise.webapp.storage.serialize;
 import com.urise.webapp.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,7 @@ public class DataStreamSerializer implements SerializeStrategy {
                 switch (k) {
                     case PERSONAL:
                     case OBJECTIVE:
-                        try {
-                            dos.writeUTF(((TextSection) v).getDescription());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        writeText(dos, ((TextSection) v).getDescription());
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
@@ -43,19 +40,19 @@ public class DataStreamSerializer implements SerializeStrategy {
                     case EXPERIENCE:
                     case EDUCATION:
                         List<Organization> organizationList = ((OrganizationSection) v).getOrganizations();
-//                        try {
-//                            writeCollection(dos, organizationList);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
+
                         organizationList.forEach(value -> {
-                            System.out.println("Name home page -> " + value.getHomePage().getName());
-                            System.out.println("Name url page -> " + value.getHomePage().getUrl());
+                            writeText(dos, value.getHomePage().getName());
+
+                            if (value.getHomePage().getUrl() != null) {
+                                writeText(dos, value.getHomePage().getUrl());
+                            } else writeText(dos, "null");
+
                             value.getPositions().forEach(position -> {
-                                System.out.println("DateStart -> " + position.getDateStart());
-                                System.out.println("DateEnd -> " + position.getDateEnd());
-                                System.out.println("Title -> " + position.getTitle());
-                                System.out.println("Descr -> " + position.getDescription());
+                                writeLocalDate(dos, position.getDateStart());
+                                writeLocalDate(dos, position.getDateEnd());
+                                writeText(dos, position.getTitle());
+                                writeText(dos, position.getDescription());
                             });
                         });
                         break;
@@ -63,7 +60,6 @@ public class DataStreamSerializer implements SerializeStrategy {
             });
         }
     }
-
 
     @Override
     public Resume doRead(InputStream is) throws IOException {
@@ -77,6 +73,13 @@ public class DataStreamSerializer implements SerializeStrategy {
                 resume.addContacts(ContactType.valueOf(dis.readUTF()), dis.readUTF());
             }
 
+            size = dis.readInt();
+            System.out.println(size);
+
+            SectionType sectionType = SectionType.valueOf(dis.readUTF());
+
+            System.out.println("Debug - >" + sectionType.getTitle());
+
             // TODO implements Sections
             return resume;
         }
@@ -86,7 +89,31 @@ public class DataStreamSerializer implements SerializeStrategy {
         dos.writeInt(collection.size());
         for (T item : collection) {
             dos.writeUTF(item.toString());
-            System.out.println("item -> " + item);
+        }
+    }
+
+    private void writeLocalDate(DataOutputStream dos, LocalDate dateStart) {
+        try {
+            dos.writeInt(dateStart.getYear());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            dos.writeInt(dateStart.getMonthValue());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private LocalDate readLocalDate(DataInputStream dis) throws IOException {
+        return LocalDate.of(dis.readInt(), dis.readInt(), 1);
+    }
+
+    private void writeText(DataOutputStream dos, String value) {
+        try {
+            dos.writeUTF(value);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
