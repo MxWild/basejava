@@ -1,5 +1,7 @@
 package com.urise.webapp;
 
+import com.urise.webapp.util.LazySingleton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,7 @@ public class MainConcurrency {
             }
         });
         System.out.println(mainConcurrency.counter);
+
     }
 
     private synchronized void inc() {
