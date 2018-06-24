@@ -1,15 +1,13 @@
 package com.urise.webapp;
 
-import com.urise.webapp.util.LazySingleton;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainConcurrency {
 
     public static final int THREADS_NUMBER = 10000;
-    private int counter;
     private static final Object LOCK = new Object();
+    private int counter;
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println(Thread.currentThread().getName());
@@ -62,15 +60,33 @@ public class MainConcurrency {
         });
         System.out.println(mainConcurrency.counter);
 
+
+        // TODO реализовать deadlock
+
+        Object oneObject = new Object();
+        Object twoObject = new Object();
+
+        deadLockObject(oneObject, twoObject);
+        deadLockObject(twoObject, oneObject);
+
+    }
+
+    private static void deadLockObject(Object one, Object two) {
+        new Thread(() -> {
+            System.out.println("Outside1 -> " + one.toString());
+            synchronized (one) {
+                System.out.println("Inside1 -> " + one.toString());
+
+                System.out.println("Outside2 -> " + one.toString());
+                synchronized (two) {
+                    System.out.println("Inside2 -> " + two.toString());
+
+                }
+            }
+        }).start();
     }
 
     private synchronized void inc() {
-//        synchronized (this) {
-//        synchronized (MainConcurrency.class) {
         counter++;
-//                wait();
-//                readFile
-//                ...
-//        }
     }
 }
