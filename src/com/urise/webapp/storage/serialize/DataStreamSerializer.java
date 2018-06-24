@@ -62,7 +62,6 @@ public class DataStreamSerializer implements SerializeStrategy {
                                 dos.writeUTF(organization.getHomePage().getUrl());
 
                                 List<Organization.Position> positions = organization.getPositions();
-//                                int numPosition = positions.size();
                                 positions.forEach(position -> {
                                     writeLocalDate(dos, position.getDateStart());
                                     writeLocalDate(dos, position.getDateEnd());
