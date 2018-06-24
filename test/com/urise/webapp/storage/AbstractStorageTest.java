@@ -45,7 +45,7 @@ public abstract class AbstractStorageTest {
         RESUME_1.addSections(SectionType.EDUCATION, new OrganizationSection(
                 new Organization("University", "http://university.ru",
                         new Organization.Position(1996, Month.SEPTEMBER, 2001, Month.MAY, "Engeener", "Facultet")),
-                new Organization("Institute",  null,
+                new Organization("Institute",  "http://institute.com",
                         new Organization.Position(2001, Month.SEPTEMBER, "Bakalavr", "Magistratura"))
         ));
 
@@ -53,9 +53,9 @@ public abstract class AbstractStorageTest {
                 new Organization("Work3", "http://work3.com",
                         new Organization.Position(2015, Month.JANUARY, "Developer", "Some description")),
                 new Organization("Work2", "http://work2.com",
-                new Organization.Position(2013, Month.APRIL, 2014, Month.DECEMBER, "Admin", "Some Admin roles")),
+                    new Organization.Position(2013, Month.APRIL, 2014, Month.DECEMBER, "Admin", "Some Admin roles")),
                 new Organization("Work1", "http://work1.com",
-                new Organization.Position(2011, Month.JULY, 2014, Month.DECEMBER, "Manager", "Some managementwoles"))
+                    new Organization.Position(2011, Month.JULY, 2014, Month.DECEMBER, "Manager", "Some managementwoles"))
         ));
 
         RESUME_3.addContacts(ContactType.TEL, "+7 923 233 03 03");
