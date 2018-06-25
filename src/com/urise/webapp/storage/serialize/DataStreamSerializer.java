@@ -27,54 +27,48 @@ public class DataStreamSerializer implements SerializeStrategy {
             Map<SectionType, Section> sections = resume.getSections();
             dos.writeInt(sections.size());
 
-            sections.forEach((k, v) -> {
-                switch (k) {
+//            sections.forEach((k, v) -> {
+            for (Map.Entry<SectionType, Section> section : sections.entrySet()) {
+
+                dos.writeUTF(section.getKey().name());
+
+                switch (section.getKey()) {
                     case PERSONAL:
                     case OBJECTIVE:
-                        writeText(dos, k.name());
-                        writeText(dos, ((TextSection) v).getDescription());
+                        dos.writeUTF(((TextSection) section.getValue()).getDescription());
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        writeText(dos, k.name());
-                        List<String> list = ((ListSection) v).getList();
-                        try {
-                            dos.writeInt(list.size());
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        List<String> lists = ((ListSection) section.getValue()).getList();
+                        dos.writeInt(lists.size());
+                        for (String list : lists) {
+                            dos.writeUTF(list);
                         }
-                        list.forEach(value -> {
-                            writeText(dos, value);
-                        });
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        writeText(dos, k.name());
-                        List<Organization> organizationList = ((OrganizationSection) v).getOrganizations();
-                        try {
-                            dos.writeInt(organizationList.size());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        organizationList.forEach(organization -> {
-                            try {
-                                dos.writeUTF(organization.getHomePage().getName());
-                                dos.writeUTF(organization.getHomePage().getUrl());
+                        List<Organization> organizationList = ((OrganizationSection) section.getValue()).getOrganizations();
+                        dos.writeInt(organizationList.size());
+                        for (Organization organization : organizationList) {
+                            dos.writeUTF(organization.getHomePage().getName());
+                            dos.writeUTF(organization.getHomePage().getUrl());
 
-                                List<Organization.Position> positions = organization.getPositions();
-                                positions.forEach(position -> {
-                                    writeLocalDate(dos, position.getDateStart());
-                                    writeLocalDate(dos, position.getDateEnd());
-                                    writeText(dos, position.getTitle());
-                                    writeText(dos, position.getDescription());
-                                });
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            List<Organization.Position> positions = organization.getPositions();
+                            for (Organization.Position position : positions) {
+                                writeLocalDate(dos, position.getDateStart());
+                                writeLocalDate(dos, position.getDateEnd());
+                                try {
+                                    dos.writeUTF(position.getTitle());
+                                    dos.writeUTF(position.getDescription());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        });
+
+                        }
                         break;
                 }
-            });
+            }
         }
     }
 
@@ -139,13 +133,4 @@ public class DataStreamSerializer implements SerializeStrategy {
     private LocalDate readLocalDate(DataInputStream dis) throws IOException {
         return LocalDate.of(dis.readInt(), dis.readInt(), 1);
     }
-
-    private void writeText(DataOutputStream dos, String value) {
-        try {
-            dos.writeUTF(value);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -76,6 +76,11 @@ public class MainConcurrency {
             System.out.println("Outside1 -> " + one.toString());
             synchronized (one) {
                 System.out.println("Inside1 -> " + one.toString());
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 System.out.println("Outside2 -> " + one.toString());
                 synchronized (two) {
