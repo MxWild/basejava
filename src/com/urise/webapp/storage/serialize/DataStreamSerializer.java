@@ -27,7 +27,6 @@ public class DataStreamSerializer implements SerializeStrategy {
             Map<SectionType, Section> sections = resume.getSections();
             dos.writeInt(sections.size());
 
-//            sections.forEach((k, v) -> {
             for (Map.Entry<SectionType, Section> section : sections.entrySet()) {
 
                 dos.writeUTF(section.getKey().name());
@@ -57,12 +56,8 @@ public class DataStreamSerializer implements SerializeStrategy {
                             for (Organization.Position position : positions) {
                                 writeLocalDate(dos, position.getDateStart());
                                 writeLocalDate(dos, position.getDateEnd());
-                                try {
                                     dos.writeUTF(position.getTitle());
                                     dos.writeUTF(position.getDescription());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                             }
 
                         }
@@ -121,13 +116,9 @@ public class DataStreamSerializer implements SerializeStrategy {
         return list;
     }
 
-    private void writeLocalDate(DataOutputStream dos, LocalDate dateStart) {
-        try {
+    private void writeLocalDate(DataOutputStream dos, LocalDate dateStart) throws IOException {
             dos.writeInt(dateStart.getYear());
             dos.writeInt(dateStart.getMonthValue());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private LocalDate readLocalDate(DataInputStream dis) throws IOException {

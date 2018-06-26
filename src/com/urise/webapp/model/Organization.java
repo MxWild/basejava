@@ -23,7 +23,7 @@ public class Organization implements Serializable {
     }
 
     public Organization(String name, String url, Position... positions) {
-        this(new Link(name, url), Arrays.asList(positions));
+        this(new Link(name, (url != null ? url : "")), Arrays.asList(positions));
     }
 
     public Organization(Link homePage, List<Position> positions) {
@@ -78,7 +78,6 @@ public class Organization implements Serializable {
         }
 
         public Position(int startYear, Month startMonth, String title, String description) {
-//            this(DateUtil.of(startYear, startMonth), LocalDate.now(), title, description);
             this(DateUtil.of(startYear, startMonth), DateUtil.NOW, title, description);
         }
 
@@ -93,7 +92,7 @@ public class Organization implements Serializable {
             this.dateStart = dateStart;
             this.dateEnd = dateEnd;
             this.title = title;
-            this.description = description;
+            this.description = description != null ? description : "";
         }
 
         public LocalDate getDateStart() {
