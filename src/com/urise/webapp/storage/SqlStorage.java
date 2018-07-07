@@ -1,6 +1,5 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.sql.SqlHelper;
@@ -36,19 +35,9 @@ public class SqlStorage implements Storage {
         sqlHelper.execute("INSERT INTO resume (uuid, full_name) VALUES (?, ?)", ps -> {
             ps.setString(1, r.getUuid());
             ps.setString(2, r.getFullName());
-            if (ps.execute()) {
-                throw new ExistStorageException(r.getUuid());
-            }
+            ps.execute();
             return null;
         });
-//        try (Connection conn = connectionFactory.getConnection();
-//             PreparedStatement ps = conn.prepareStatement("INSERT INTO resume (uuid, full_name) VALUES (?, ?)")) {
-//            ps.setString(1, r.getUuid());
-//            ps.setString(2, r.getFullName());
-//            ps.execute();
-//        } catch (SQLException e) {
-//            throw new ExistStorageException(r.getUuid());
-//        }
     }
 
     @Override
@@ -59,21 +48,8 @@ public class SqlStorage implements Storage {
             if (!rs.next()) {
                 throw new NotExistStorageException(uuid);
             }
-            Resume resume = new Resume(uuid, rs.getString("full_name"));
-            return resume;
+            return new Resume(uuid, rs.getString("full_name"));
         });
-//        try (Connection conn = connectionFactory.getConnection();
-//             PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume r WHERE r.uuid = ?")) {
-//            ps.setString(1, uuid);
-//            ResultSet rs = ps.executeQuery();
-//            if (!rs.next()) {
-//                throw new NotExistStorageException(uuid);
-//            }
-//            Resume resume = new Resume(uuid, rs.getString("full_name"));
-//            return resume;
-//        } catch (SQLException e) {
-//            throw new StorageException(e);
-//        }
     }
 
     @Override
@@ -85,15 +61,6 @@ public class SqlStorage implements Storage {
             }
             return null;
         });
-//        try (Connection conn = connectionFactory.getConnection();
-//             PreparedStatement ps = conn.prepareStatement("DELETE FROM resume WHERE uuid = ?")) {
-//            ps.setString(1, uuid);
-//            if (ps.executeUpdate() == 0) {
-//               throw new NotExistStorageException(uuid);
-//            }
-//        } catch (SQLException e) {
-//            throw new StorageException(e);
-//        }
     }
 
     @Override
@@ -106,18 +73,6 @@ public class SqlStorage implements Storage {
             }
             return resumes;
         });
-//        try (Connection conn = connectionFactory.getConnection();
-//             PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume ORDER BY full_name, uuid")) {
-//            ResultSet rs = ps.executeQuery();
-//            ArrayList<Resume> resumes = new ArrayList<>();
-//            while (rs.next()) {
-//                resumes.add(new Resume(rs.getString("uuid"), rs.getString("full_name")));
-//            }
-//            return resumes;
-//
-//        } catch (SQLException e) {
-//            throw new StorageException(e);
-//        }
     }
 
     @Override
@@ -126,12 +81,5 @@ public class SqlStorage implements Storage {
             ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
         });
-//        try (Connection conn = connectionFactory.getConnection();
-//             PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM resume")) {
-//            ResultSet rs = ps.executeQuery();
-//            return rs.next() ? rs.getInt(1) : 0;
-//        } catch (SQLException e) {
-//            throw new StorageException(e);
-//        }
     }
 }
