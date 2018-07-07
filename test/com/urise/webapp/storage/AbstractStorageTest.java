@@ -11,24 +11,26 @@ import org.junit.Test;
 import java.io.File;
 import java.time.Month;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = Config.getInstance().getStorageDir();
 
-    private static final String UUID_1 = "uuid1";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+//    private static final String UUID_1 = "uuid1";
     private static final String NAME_1 = "Name1";
     private static final Resume RESUME_1 = new Resume(UUID_1, NAME_1);
 
-    private static final String UUID_2 = "uuid2";
+    private static final String UUID_2 = UUID.randomUUID().toString();
     private static final String NAME_2 = "Name2";
     private static final Resume RESUME_2 = new Resume(UUID_2, NAME_2);
 
-    private static final String UUID_3 = "uuid3";
+    private static final String UUID_3 = UUID.randomUUID().toString();
     private static final String NAME_3 = "Name3";
     private static final Resume RESUME_3 = new Resume(UUID_3, NAME_3);
 
-    private static final String UUID_TEST = "test_uuid";
+    private static final String UUID_TEST = UUID.randomUUID().toString();
     private static final String NAME_TEST = "test_Name";
     public static final Resume RESUME_4 = new Resume(UUID_TEST, NAME_TEST);
 
