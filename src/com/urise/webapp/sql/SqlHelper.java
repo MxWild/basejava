@@ -30,6 +30,24 @@ public class SqlHelper {
         }
     }
 
+    public <T> T transactionalExecute(SqlTransaction<T> executor) {
+        try (Connection conn = connectionFactory.getConnection()) {
+            try {
+                conn.setAutoCommit(false);
+                T res = executor.execute(conn);
+                conn.commit();
+                return res;
+            } catch (SQLException e) {
+                conn.rollback();
+                if (e.getSQLState().equals("23505")) {
+                    throw new ExistStorageException(null);
+                } else throw new StorageException(e);
+            }
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
+    }
+
     public interface SqlPrepare<T> {
         T execute(PreparedStatement statement) throws SQLException;
     }

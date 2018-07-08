@@ -17,7 +17,7 @@ public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.getInstance().getStorageDir();
 
     private static final String UUID_1 = UUID.randomUUID().toString();
-//    private static final String UUID_1 = "uuid1";
+    //    private static final String UUID_1 = "uuid1";
     private static final String NAME_1 = "Name1";
     private static final Resume RESUME_1 = new Resume(UUID_1, NAME_1);
 
@@ -32,6 +32,15 @@ public abstract class AbstractStorageTest {
     private static final String UUID_TEST = UUID.randomUUID().toString();
     private static final String NAME_TEST = "test_Name";
     public static final Resume RESUME_4 = new Resume(UUID_TEST, NAME_TEST);
+
+
+    static {
+        RESUME_1.addContacts(ContactType.TEL, "+7 922 222 22 22");
+        RESUME_1.addContacts(ContactType.EMAIL, "maximus@maximus.ru");
+        RESUME_1.addContacts(ContactType.GITHUB, "https://github.com/maximus");
+        RESUME_1.addContacts(ContactType.SKYPE, "maximus@skype.ru");
+    }
+
 
 //    static {
 //        RESUME_1.addContacts(ContactType.TEL, "+7 922 222 22 22");
