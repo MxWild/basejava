@@ -31,14 +31,22 @@ public abstract class AbstractStorageTest {
 
     private static final String UUID_TEST = UUID.randomUUID().toString();
     private static final String NAME_TEST = "test_Name";
-    public static final Resume RESUME_4 = new Resume(UUID_TEST, NAME_TEST);
+    private static final Resume RESUME_4 = new Resume(UUID_TEST, NAME_TEST);
 
 
     static {
         RESUME_1.addContacts(ContactType.TEL, "+7 922 222 22 22");
         RESUME_1.addContacts(ContactType.EMAIL, "maximus@maximus.ru");
         RESUME_1.addContacts(ContactType.GITHUB, "https://github.com/maximus");
-        RESUME_1.addContacts(ContactType.SKYPE, "maximus@skype.ru");
+        RESUME_1.addContacts(ContactType.SKYPE, "maximus@skype.com");
+
+        RESUME_2.addContacts(ContactType.TEL, "+7 911 111 11 11");
+        RESUME_2.addContacts(ContactType.SKYPE, "RESUME_2@skype.com");
+
+        RESUME_3.addContacts(ContactType.TEL, "+7 923 233 03 03");
+        RESUME_3.addContacts(ContactType.EMAIL, "RESUME_3@yandex.ru");
+
+        RESUME_4.addContacts(ContactType.TEL, "+7 933 333 33 33");
     }
 
 

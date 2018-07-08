@@ -9,9 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
+    private static final Logger LOG = Logger.getLogger(SqlStorage.class.getName());
     private final SqlHelper sqlHelper;
+
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
         sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
@@ -20,6 +23,7 @@ public class SqlStorage implements Storage {
     @Override
     public void clear() {
         sqlHelper.execute("DELETE FROM resume");
+        LOG.info("Clean all data from DB");
     }
 
     @Override
@@ -48,6 +52,8 @@ public class SqlStorage implements Storage {
                     ps.setString(2, e.getKey().name());
                     ps.setString(3, e.getValue());
                     ps.addBatch();
+                    LOG.info("Save uuid: " + r.getUuid() + " fullName: " + r.getFullName()
+                            + " ContactType: " + e.getKey().name() + " - " + e.getValue());
                 }
                 ps.executeBatch();
             }
@@ -69,9 +75,7 @@ public class SqlStorage implements Storage {
                     }
                     Resume resume = new Resume(uuid, rs.getString("full_name"));
                     do {
-                        String value = rs.getString("value");
-                        ContactType type = ContactType.valueOf(rs.getString("type"));
-                        resume.addContacts(type, value);
+                        addContact(rs, resume);
                     } while (rs.next());
                     return resume;
                 });
@@ -106,5 +110,13 @@ public class SqlStorage implements Storage {
             ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
         });
+    }
+
+    private void addContact(ResultSet rs, Resume resume) throws SQLException {
+        String value = rs.getString("value");
+        if (value != null) {
+            ContactType contactType = ContactType.valueOf(rs.getString("type"));
+            resume.addContacts(contactType, value);
+        }
     }
 }
