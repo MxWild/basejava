@@ -16,7 +16,7 @@ public class SqlHelper {
     }
 
     public void execute(String sql) {
-        execute(sql, statement -> statement.execute());
+        execute(sql, PreparedStatement::execute);
     }
 
     public <T> T execute(String sql, SqlPrepare<T> sqlPrepare) {
@@ -24,8 +24,9 @@ public class SqlHelper {
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             return sqlPrepare.execute(preparedStatement);
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23505")) throw new ExistStorageException(null);
-            else throw new StorageException(e);
+            if (e.getSQLState().equals("23505")) {
+                throw new ExistStorageException(null);
+            } else throw new StorageException(e);
         }
     }
 
