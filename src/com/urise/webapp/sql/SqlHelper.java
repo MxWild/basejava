@@ -26,7 +26,9 @@ public class SqlHelper {
         } catch (SQLException e) {
             if (e.getSQLState().equals("23505")) {
                 throw new ExistStorageException(null);
-            } else throw new StorageException(e);
+            } else {
+                throw new StorageException(e);
+            }
         }
     }
 
@@ -41,7 +43,9 @@ public class SqlHelper {
                 conn.rollback();
                 if (e.getSQLState().equals("23505")) {
                     throw new ExistStorageException(null);
-                } else throw new StorageException(e);
+                } else {
+                    throw new StorageException(e);
+                }
             }
         } catch (SQLException e) {
             throw new StorageException(e);
