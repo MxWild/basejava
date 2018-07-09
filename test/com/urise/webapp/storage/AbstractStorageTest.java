@@ -128,8 +128,13 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() {
         Resume newResume = new Resume(UUID_1, NAME_TEST);
+        newResume.addContacts(ContactType.TEL, "New telephone");
+        newResume.addContacts(ContactType.EMAIL, "New email");
+        newResume.addContacts(ContactType.GITHUB, "New github");
+        newResume.addContacts(ContactType.SKYPE, "New skype");
         storage.update(newResume);
-        Assert.assertTrue(newResume.equals(storage.get(UUID_1)));
+//        Assert.assertTrue(newResume.equals(storage.get(UUID_1)));
+        Assert.assertEquals(newResume, storage.get(UUID_1));
     }
 
     @Test
