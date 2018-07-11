@@ -30,15 +30,16 @@ public class SqlStorage implements Storage {
     @Override
     public void update(Resume r) {
         sqlHelper.transactionalExecute(conn -> {
-           try (PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?")) {
-               ps.setString(1, r.getFullName());
-               ps.setString(2, r.getUuid());
-               ps.executeUpdate();
-
-               deleteContact(r);
-               insertContact(conn, r);
-               return null;
-           }
+            try (PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?")) {
+                ps.setString(1, r.getFullName());
+                ps.setString(2, r.getUuid());
+                if (ps.executeUpdate() == 0) {
+                    throw new NotExistStorageException(r.getUuid());
+                }
+                deleteContact(conn, r);
+                insertContact(conn, r);
+                return null;
+            }
         });
 
     }
@@ -59,9 +60,9 @@ public class SqlStorage implements Storage {
     @Override
     public Resume get(String uuid) {
         return sqlHelper.execute("SELECT * FROM resume r " +
-                                "  LEFT JOIN contact c " +
-                                    "     ON r.uuid = c.resume_uuid " +
-                                    "  WHERE r.uuid = ? ",
+                        "  LEFT JOIN contact c " +
+                        "     ON r.uuid = c.resume_uuid " +
+                        "  WHERE r.uuid = ? ",
                 ps -> {
                     ps.setString(1, uuid);
                     ResultSet rs = ps.executeQuery();
@@ -90,8 +91,8 @@ public class SqlStorage implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         return sqlHelper.execute("SELECT * FROM resume r JOIN contact c " +
-                                        " ON r.uuid = c.resume_uuid " +
-                                  " ORDER BY full_name, uuid", ps -> {
+                " ON r.uuid = c.resume_uuid " +
+                " ORDER BY full_name, uuid", ps -> {
             ResultSet rs = ps.executeQuery();
             Map<String, Resume> resumeMap = new LinkedHashMap<>();
             while (rs.next()) {
@@ -115,7 +116,7 @@ public class SqlStorage implements Storage {
         });
     }
 
-    private void deleteContact(Resume r) {
+    private void deleteContact(Connection conn, Resume r) {
         sqlHelper.execute("DELETE FROM contact WHERE resume_uuid = ?", ps -> {
             ps.setString(1, r.getUuid());
             ps.execute();
