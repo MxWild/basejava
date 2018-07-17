@@ -21,7 +21,11 @@ public class JsonParser {
         GSON.toJson(object, writer);
     }
 
-    public static <T> String write(T section, Class<T> sectionClass) {
-        return GSON.toJson(section, sectionClass);
+    public static <T> String write(T section, Class<T> clazz) {
+        return GSON.toJson(section, clazz);
+    }
+
+    public static <T> T read(String content, Class<T> clazz) {
+        return GSON .fromJson(content, clazz);
     }
 }
