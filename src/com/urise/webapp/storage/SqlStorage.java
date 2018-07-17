@@ -3,7 +3,10 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.Section;
+import com.urise.webapp.model.SectionType;
 import com.urise.webapp.sql.SqlHelper;
+import com.urise.webapp.util.JsonParser;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(r.getUuid());
                 }
                 deleteContact(conn, r);
-                insertContact(conn, r);
+                insertContacts(conn, r);
                 return null;
             }
         });
@@ -52,7 +55,8 @@ public class SqlStorage implements Storage {
                 ps.setString(2, r.getFullName());
                 ps.execute();
             }
-            insertContact(conn, r);
+            insertContacts(conn, r);
+            insertSections(conn, r);
             return null;
         });
     }
@@ -132,7 +136,7 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void insertContact(Connection conn, Resume r) throws SQLException {
+    private void insertContacts(Connection conn, Resume r) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<ContactType, String> e : r.getContacts().entrySet()) {
                 ps.setString(1, r.getUuid());
@@ -140,6 +144,19 @@ public class SqlStorage implements Storage {
                 ps.setString(3, e.getValue());
                 ps.addBatch();
                 LOG.info(String.format("Save uuid: %s fullName: %s ContactType: %s - %s", r.getUuid(), r.getFullName(), e.getKey().name(), e.getValue()));
+            }
+            ps.executeBatch();
+        }
+    }
+
+    private void insertSections(Connection conn, Resume r) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, content) VALUES (?,?,?)")) {
+            for (Map.Entry<SectionType, Section> e : r.getSections().entrySet()) {
+                ps.setString(1, r.getUuid());
+                ps.setString(2, e.getKey().name());
+                Section section = e.getValue();
+                ps.setString(3, JsonParser.write(section, Section.class));
+                ps.addBatch();
             }
             ps.executeBatch();
         }
