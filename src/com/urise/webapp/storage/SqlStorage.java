@@ -65,21 +65,50 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        return sqlHelper.execute("SELECT * FROM resume r " +
-                "  LEFT JOIN contact c " +
-                "     ON r.uuid = c.resume_uuid " +
-                "  WHERE r.uuid = ? ", ps -> {
-            ps.setString(1, uuid);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                throw new NotExistStorageException(uuid);
+        return sqlHelper.transactionalExecute(conn -> {
+            Resume resume;
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume WHERE uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                if (!rs.next()) {
+                    throw new NotExistStorageException(uuid);
+                }
+                resume = new Resume(uuid, rs.getString("full_name"));
             }
-            Resume resume = new Resume(uuid, rs.getString("full_name"));
-            do {
-                getContact(rs, resume);
-            } while (rs.next());
+
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact WHERE resume_uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    addContact(rs, resume);
+                }
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM section WHERE resume_uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    addSection(rs, resume);
+                }
+            }
+
             return resume;
         });
+//        return sqlHelper.execute("SELECT * FROM resume r " +
+//                "  LEFT JOIN contact c " +
+//                "     ON r.uuid = c.resume_uuid " +
+//                "  WHERE r.uuid = ? ", ps -> {
+//            ps.setString(1, uuid);
+//            ResultSet rs = ps.executeQuery();
+//            if (!rs.next()) {
+//                throw new NotExistStorageException(uuid);
+//            }
+//            Resume resume = new Resume(uuid, rs.getString("full_name"));
+//            do {
+//                getContact(rs, resume);
+//            } while (rs.next());
+//            return resume;
+//        });
     }
 
     @Override
