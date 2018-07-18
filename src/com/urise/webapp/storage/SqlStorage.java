@@ -194,14 +194,6 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void getContact(ResultSet rs, Resume resume) throws SQLException {
-        String value = rs.getString("value");
-        if (value != null) {
-            ContactType contactType = ContactType.valueOf(rs.getString("type"));
-            resume.addContacts(contactType, value);
-        }
-    }
-
     private void insertContacts(Connection conn, Resume r) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<ContactType, String> e : r.getContacts().entrySet()) {
