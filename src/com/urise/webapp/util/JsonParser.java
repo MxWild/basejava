@@ -2,6 +2,7 @@ package com.urise.webapp.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.urise.webapp.model.Resume;
 import com.urise.webapp.model.Section;
 
 import java.io.Reader;
@@ -27,5 +28,9 @@ public class JsonParser {
 
     public static <T> T read(String content, Class<T> clazz) {
         return GSON .fromJson(content, clazz);
+    }
+
+    public static <T> String write(T object) {
+        return GSON.toJson(object);
     }
 }
