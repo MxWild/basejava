@@ -2,6 +2,7 @@ package com.urise.webapp.util;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtil {
@@ -18,4 +19,9 @@ public class DateUtil {
         return date.equals(NOW) ? "Сейчас" : date.format(DATE_FORMATTER);
     }
 
+    public static LocalDate parse(String date) {
+        if (HtmlUtil.isEmpty(date) || "Сейчас".equals(date)) return NOW;
+        YearMonth yearMonth = YearMonth.parse(date, DATE_FORMATTER);
+        return LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), 1);
+    }
 }
