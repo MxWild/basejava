@@ -43,7 +43,7 @@ public class TestData {
                 new Organization("University", "http://university.ru",
                         new Organization.Position(1996, Month.SEPTEMBER, 2001, Month.MAY, "Engeener", "Facultet")),
                 new Organization("Institute",  "http://institute.com",
-                        new Organization.Position(2001, Month.SEPTEMBER, "Bakalavr", "Magistratura"))
+                        new Organization.Position(2001, Month.SEPTEMBER, 2005, Month.MAY, "Bakalavr", "Magistratura"))
         ));
 
         RESUME_1.addSections(SectionType.EXPERIENCE, new OrganizationSection(
