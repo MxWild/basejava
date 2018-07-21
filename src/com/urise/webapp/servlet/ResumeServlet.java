@@ -62,6 +62,9 @@ public class ResumeServlet extends HttpServlet {
             case "edit":
                 resume = storage.get(uuid);
                 break;
+            case "add":
+                request.getRequestDispatcher("/WEB-INF/jsp/add.jsp").forward(request, response);
+                return;
             default:
                  throw new IllegalStateException("Action " + action + " is illegal.");
         }
