@@ -1,5 +1,6 @@
 package com.urise.webapp.servlet;
 
+import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.Storage;
 import com.urise.webapp.Config;
 
@@ -26,13 +27,30 @@ public class ResumeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("resumes", storage.getAllSorted());
-        request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
-//        request.setCharacterEncoding("UTF-8");
-//        response.setCharacterEncoding("UTF-8");
-////        response.setHeader("Content-Type", "text/html; charset=UTF-8");
-//        response.setContentType("text/html; charset=UTF-8");
-//        String name = request.getParameter("name");
-//        response.getWriter().write(name == null ? "Hello Resumes!" : "Hello " + name + '!');
+
+        String uuid = request.getParameter("uuid");
+        String action = request.getParameter("action");
+        Resume resume = null;
+
+        if (action == null) {
+            request.setAttribute("resumes", storage.getAllSorted());
+            request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
+            return;
+        }
+        switch (action) {
+            case "delete":
+                storage.delete(uuid);
+                response.sendRedirect("resume");
+                return;
+            case "view":
+            case "edit":
+                resume = storage.get(uuid);
+                break;
+            default:
+                 throw new IllegalStateException("Action " + action + " is illegal.");
+        }
+        request.setAttribute("resume", resume);
+        request.getRequestDispatcher("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp").forward(request, response);
+
     }
 }

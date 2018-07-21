@@ -30,6 +30,10 @@ public class TestData {
         RESUME_1.addContacts(ContactType.GITHUB, "https://github.com/maximus");
         RESUME_1.addContacts(ContactType.SKYPE, "maximus@skype.com");
 
+        RESUME_2.addContacts(ContactType.TEL, "+7 911 111 11 11");
+        RESUME_2.addContacts(ContactType.EMAIL, "resume2@gmail.com");
+        RESUME_2.addContacts(ContactType.GITHUB, "https://github.com/resume2");
+
         RESUME_1.addSections(SectionType.PERSONAL, new TextSection("My super description about me!"));
         RESUME_1.addSections(SectionType.OBJECTIVE, new TextSection("My objective"));
         RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievent2"));
